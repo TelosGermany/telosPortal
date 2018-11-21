@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
+// TODO: Change icon
 import GenereosIcon from 'assets/img/genereosWhite.png';
 
 const style = {

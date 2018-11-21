@@ -4,6 +4,7 @@ const permTree = `owner: { keys,accounts,delays... }\n\t
   active: { keys,accounts,delays... }\n\t\t
     delegate: { keys,accounts,delays... }`;
 
+// TODO: Check if changes needed
 const ComplexPermissions = () => {
   return (
     <div>

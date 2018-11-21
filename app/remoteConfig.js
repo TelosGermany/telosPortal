@@ -2,6 +2,8 @@
 // Provide a list of EOS tokens that are available
 //
 
+// TODO: Change remote addresses and content to include telos and check which remotes are necessary
+
 const airgrabs = [
   {
     symbol: 'ATD',
@@ -55,9 +57,10 @@ const airgrabs = [
 ];
 
 const claimsUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-claims/master/claims.json';
-const airgrabsUrl = 'https://raw.githubusercontent.com/eoscafe/eos-airgrabs/master/airgrabs.json';
 const tokensUrl = 'https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json';
 const networksUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-networks/master/networks.json';
 const refUrl = 'https://s3.amazonaws.com/api.eosvotes.io/eosvotes/tallies/latest.json';
+
+// const airgrabsUrl = 'https://raw.githubusercontent.com/eoscafe/eos-airgrabs/master/airgrabs.json';
 
 export { refUrl, tokensUrl, networksUrl, claimsUrl, airgrabs };
