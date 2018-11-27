@@ -14,7 +14,7 @@ import Tool from 'components/Tool/Tool';
 import ToolSection from 'components/Tool/ToolSection';
 import ToolBody from 'components/Tool/ToolBody';
 
-import PoormanInfo from 'components/Information/PoormanInfo';
+// import PoormanInfo from 'components/Information/PoormanInfo';
 import Disclaimer from 'components/Information/Disclaimer';
 
 import AirgrabTable from './AirgrabTable';
@@ -100,11 +100,13 @@ const AirgrabForm = props => {
           <ClaimsTable handleSubmit={handleClaims} account={networkAccount} claims={props.claims}/>
         </ToolBody>
       </ToolSection>
+      /*
       <ToolSection lg={4}>
         <ToolBody header="Poorman Token">
           <PoormanInfo />
         </ToolBody>
       </ToolSection>
+      */
     </Tool>
   );
 };

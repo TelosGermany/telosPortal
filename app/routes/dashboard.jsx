@@ -64,6 +64,8 @@ import {
 import HorusIcon from 'components/Icons/Horus';
 import KarmaIcon from 'components/Icons/Karma';
 
+// TODO: Check whats needed for first release
+
 const dashRoutes = [
   { hide: true, path: '/networks', name: 'Network', component: Network },
   {
