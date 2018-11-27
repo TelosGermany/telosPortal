@@ -49,10 +49,18 @@ function Footer({ ...props }) {
         </div>
         <p className={classes.right}>
           &copy; {1900 + new Date().getYear()}{' '}
+          {'Provided by '}
           <a href="https://telosgermany.io" target="new" className={anchor}>
             {'TelosGermany'}
           </a>
-          {', made with passion for the Telos and EOS Community'}
+          {', made for the Telos and EOS Community, based on '}
+          <a href="https://github.com/eostoolkit/eostoolkit" target="_blank" className={anchor}>
+            {'eostoolkit'}
+          </a>
+          {' from '}
+          <a href="https://www.genereos.io/" target="_blank" className={anchor}>
+            {'GenerEOS'}
+          </a>
         </p>
       </div>
     </footer>
