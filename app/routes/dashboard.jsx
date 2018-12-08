@@ -59,7 +59,7 @@ import {
   VpnKey,
   Games,
   Feedback,
-  Extension
+  Extension,
 } from '@material-ui/icons';
 import HorusIcon from 'components/Icons/Horus';
 import KarmaIcon from 'components/Icons/Karma';
@@ -74,12 +74,14 @@ const dashRoutes = [
     icon: Dashboard,
     component: FeaturesPage,
   },
+  /*
   {
     path: '/community/forum/vote',
     name: 'Referendum',
     icon: Feedback,
     component: Referendum,
   },
+
   {
     path: '/donate',
     name: 'Donate',
@@ -117,15 +119,15 @@ const dashRoutes = [
         mini: 'GC',
         component: Grandpa,
       },
-    ]
-  },
-
+    ],
+  }, */
+  /*
   {
     path: '/airgrab',
     name: 'Airgrab Tokens',
     icon: CloudDownload,
     component: Airgrab,
-  },
+  }, */
   {
     path: '/search',
     name: 'Find Accounts',
@@ -228,6 +230,7 @@ const dashRoutes = [
       },
     ],
   },
+  /*
   {
     collapse: true,
     path: '/community',
@@ -260,7 +263,7 @@ const dashRoutes = [
         component: BidName,
       },
     ],
-  },
+  }, */
   {
     collapse: true,
     path: '/multisig',
