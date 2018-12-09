@@ -19,6 +19,7 @@ export function* fetchNetworks() {
   try {
     // fetch the remote network list
     const data = yield fetch(networksUrl);
+    console.log(data);
     const rawNetworks = yield data.json();
 
     const networks = rawNetworks.map(network => {
@@ -37,8 +38,8 @@ export function* fetchNetworks() {
     });
 
     // get default
-    const network = networks.find(n => n.network === 'eos' && n.type === 'mainnet');
-    const endpoint = network.endpoints.find(e => e.name === 'Greymass');
+    const network = networks.find(n => n.network === 'telos' && n.type === 'testnet');
+    const endpoint = network.endpoints.find(e => e.name === 'Telos Germany');
 
     // build activeNetwork
     const activeNetwork = {
@@ -193,6 +194,8 @@ export function* fetchIdentity(signer, activeNetwork) {
     };
 
     // suggest the network to the user
+    console.log('###############################');
+    console.log(networkConfig);
     yield signer.suggestNetwork(networkConfig);
 
     // get identities specific to the activeNetwork
