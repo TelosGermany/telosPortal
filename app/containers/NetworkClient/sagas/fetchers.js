@@ -1,11 +1,17 @@
-//import Ping from 'ping.js';
+// import Ping from 'ping.js';
 import Ping from 'utils/ping';
 import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call, spawn } from 'redux-saga/effects';
 import { tokensUrl, networksUrl, claimsUrl } from 'remoteConfig';
 
 import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
-import { makeSelectIdentity, makeSelectReader, makeSelectTokens, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
+import {
+  makeSelectIdentity,
+  makeSelectReader,
+  makeSelectTokens,
+  makeSelectNetworks,
+  makeSelectActiveNetwork,
+} from '../selectors';
 
 /*
 *
@@ -29,16 +35,16 @@ export function* fetchNetworks() {
           ...endpoint,
           failures: 0,
           ping: -1,
-        }
-      })
+        };
+      });
       return {
         ...networkDetails,
         endpoints: endpointDetails,
-      }
+      };
     });
 
     // get default
-    const network = networks.find(n => n.network === 'telos' && n.type === 'testnet');
+    const network = networks.find(n => n.network === 'eos' && n.type === 'testnet');
     const endpoint = network.endpoints.find(e => e.name === 'Telos Germany');
 
     // build activeNetwork
@@ -54,19 +60,18 @@ export function* fetchNetworks() {
   }
 }
 
-
 function* makeEndpointsLatency(endpoint) {
-  const {ping, ...endpointDetails} = endpoint;
+  const { ping, ...endpointDetails } = endpoint;
 
   try {
     return {
       ...endpointDetails,
-      ping: yield call(Ping,`${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`)
+      ping: yield call(Ping, `${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`),
     };
   } catch (c) {
     return {
       ...endpointDetails,
-      ping: 5000
+      ping: 5000,
     };
   }
 }
@@ -74,35 +79,36 @@ function* makeEndpointsLatency(endpoint) {
 export function* fetchLatency() {
   try {
     // fetch the remote network list
-    let networks = yield select(makeSelectNetworks());
+    const networks = yield select(makeSelectNetworks());
     const active = yield select(makeSelectActiveNetwork());
 
-    const activeIndex = networks.findIndex(network=>{
+    const activeIndex = networks.findIndex(network => {
       return network.chainId === active.network.chainId;
     });
 
     let endpoints = networks[activeIndex].endpoints;
 
-    const latencies = yield all(endpoints.map(endpoint => {
-      return fork(makeEndpointsLatency,endpoint)
-    }));
+    const latencies = yield all(
+      endpoints.map(endpoint => {
+        return fork(makeEndpointsLatency, endpoint);
+      })
+    );
 
     endpoints = yield join(...latencies);
     networks[activeIndex].endpoints = endpoints;
     yield put(updateNetworks(networks));
 
-    const sorted = orderBy(endpoints, ['failures','ping'], 'asc');
+    const sorted = orderBy(endpoints, ['failures', 'ping'], 'asc');
     const best = sorted[0];
 
-    if(active.endpoint.name !== best.name) {
+    if (active.endpoint.name !== best.name) {
       const activeNetwork = {
         network: networks[activeIndex],
         endpoint: best,
       };
 
-      yield put(setNetwork(activeNetwork,false));
+      yield put(setNetwork(activeNetwork, false));
     }
-
   } catch (err) {
     console.error('An EOSToolkit error occured - see details below:');
     console.error(err);
@@ -143,11 +149,11 @@ export function* fetchTokens(reader) {
 
     const tokenList = [
       {
-        symbol: "EOS",
-        account: "eosio.token"
+        symbol: 'EOS',
+        account: 'eosio.token',
       },
-      ...list
-    ]
+      ...list,
+    ];
     const info = yield all(
       tokenList.map(token => {
         return fork(fetchTokenInfo, reader, token.account, token.symbol);
@@ -194,8 +200,6 @@ export function* fetchIdentity(signer, activeNetwork) {
     };
 
     // suggest the network to the user
-    console.log('###############################');
-    console.log(networkConfig);
     yield signer.suggestNetwork(networkConfig);
 
     // get identities specific to the activeNetwork
@@ -239,16 +243,16 @@ function* getCurrency(reader, token, name) {
     });
     return currencies;
   } catch (c) {
-    let networks = yield select(makeSelectNetworks());
+    const networks = yield select(makeSelectNetworks());
     const active = yield select(makeSelectActiveNetwork());
 
-    const activeIndex = networks.findIndex(network=>{
+    const activeIndex = networks.findIndex(network => {
       return network.chainId === active.network.chainId;
-    })
+    });
 
-    const endpointIndex = networks[activeIndex].endpoints.findIndex(endpoint=>{
+    const endpointIndex = networks[activeIndex].endpoints.findIndex(endpoint => {
       return endpoint.name === active.endpoint.name;
-    })
+    });
 
     networks[activeIndex].endpoints[endpointIndex].failures += 1;
 
@@ -258,13 +262,13 @@ function* getCurrency(reader, token, name) {
 }
 
 function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
+  return self.indexOf(value) === index;
 }
 
 function* getAccountDetail(reader, name) {
   try {
     const account = yield reader.getAccount(name);
-    //const tokens = yield select(makeSelectTokens());
+    // const tokens = yield select(makeSelectTokens());
     // const tokenData = yield all(
     //   tokens.map(token => {
     //     return fork(getCurrency, reader, token.account, name);
@@ -283,42 +287,42 @@ function* getAccountDetail(reader, name) {
     //
     // });
 
-    let body = {account:account.account_name};
+    let body = { account: account.account_name };
 
     try {
-      const flare = yield fetch('https://api-pub.eosflare.io/v1/eosflare/get_account',{
-        method: "POST",
+      const flare = yield fetch('https://api-pub.eosflare.io/v1/eosflare/get_account', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json; charset=utf-8",
+          'Content-Type': 'application/json; charset=utf-8',
         },
-        body:JSON.stringify(body),
+        body: JSON.stringify(body),
       });
+
       const flareData = yield flare.json();
 
-      if(flareData.account) {
-        let tokens = flareData.account.tokens.map(token=>{
+      if (flareData.account) {
+        const tokens = flareData.account.tokens.map(token => {
           return `${token.contract}:${token.symbol}`;
         });
-        tokens.unshift('eosio.token:EOS');
+        tokens.unshift('eosio.token:TLOS');
         body = {
           ...body,
           tokens,
-        }
+        };
       }
-    } catch(err) {}
+    } catch (err) {}
 
-    const data = yield fetch('https://eos.greymass.com/v1/chain/get_currency_balances',{
-      method: "POST",
+    const data = yield fetch('https://eos.greymass.com/v1/chain/get_currency_balances', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json; charset=utf-8",
+        'Content-Type': 'application/json; charset=utf-8',
       },
-      body:JSON.stringify(body),
+      body: JSON.stringify(body),
     });
     const list = yield data.json();
-    //console.log(list);
+    // console.log(list);
 
-
-    //yield spawn(fetchLatency);
+    // yield spawn(fetchLatency);
     return {
       ...account,
       balances: list,

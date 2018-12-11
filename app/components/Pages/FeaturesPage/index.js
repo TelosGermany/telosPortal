@@ -21,7 +21,7 @@ const FeaturesPage = () => {
         <ToolBody
           color="info"
           icon={Info}
-          header="Welcome to TelosToolkit"
+          header="Welcome to TelosPortal"
           subheader=" - Easy access to the Telos and EOS Network">
           <HomeDoc />
         </ToolBody>
