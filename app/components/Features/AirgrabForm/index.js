@@ -22,26 +22,26 @@ import ClaimsTable from './ClaimsTable';
 
 const makeTransaction = (values, networkIdentity) => {
   let data = null;
-  if(values.method === 'signup' && values.symbol !== 'SEED') {
+  if (values.method === 'signup' && values.symbol !== 'SEED') {
     data = {
       owner: networkIdentity ? networkIdentity.name : '',
       quantity: `0.0000 ${values.symbol}`,
     };
   }
-  if(values.method === 'signup' && values.symbol === 'SEED') {
+  if (values.method === 'signup' && values.symbol === 'SEED') {
     data = {
       owner: networkIdentity ? networkIdentity.name : '',
       sym: `4,${values.symbol}`,
     };
   }
-  if(values.method === 'open') {
+  if (values.method === 'open') {
     data = {
       owner: networkIdentity ? networkIdentity.name : '',
       symbol: `0.0000 ${values.symbol}`,
       ram_payer: networkIdentity ? networkIdentity.name : '',
     };
   }
-  if(values.method === 'claim') {
+  if (values.method === 'claim') {
     data = {
       claimer: networkIdentity ? networkIdentity.name : '',
     };
@@ -60,7 +60,7 @@ const makeClaim = (values, networkIdentity) => {
   const data = {
     owner: networkIdentity ? networkIdentity.name : '',
     sym: values.data.sym,
-  }
+  };
   const transaction = [
     {
       account: values.account,
@@ -75,11 +75,11 @@ const AirgrabForm = props => {
   const { pushTransaction, networkIdentity, networkAccount } = props;
   const handleSubmit = values => {
     const transaction = makeTransaction(values, networkIdentity);
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
   const handleClaims = values => {
     const transaction = makeClaim(values, networkIdentity);
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
   return (
     <Tool>
@@ -95,21 +95,24 @@ const AirgrabForm = props => {
         </ToolBody>
         <ToolBody color="warning" icon={CloudDownload} header="Claim your Tokens!">
           <h6>Note: You can only claim a token you have already received.</h6>
-          <h6>Claim will succeed even if you already claimed. Next release will say you have already claimed if you have.</h6>
+          <h6>
+            Claim will succeed even if you already claimed. Next release will say you have already claimed if you have.
+          </h6>
           <Disclaimer />
-          <ClaimsTable handleSubmit={handleClaims} account={networkAccount} claims={props.claims}/>
+          <ClaimsTable handleSubmit={handleClaims} account={networkAccount} claims={props.claims} />
         </ToolBody>
       </ToolSection>
-      /*
-      <ToolSection lg={4}>
-        <ToolBody header="Poorman Token">
-          <PoormanInfo />
-        </ToolBody>
-      </ToolSection>
-      */
     </Tool>
   );
 };
+
+/*
+<ToolSection lg={4}>
+  <ToolBody header="Poorman Token">
+    <PoormanInfo />
+  </ToolBody>
+</ToolSection>
+*/
 
 const mapStateToProps = createStructuredSelector({
   claims: makeSelectClaims(),

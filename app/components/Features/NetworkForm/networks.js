@@ -44,7 +44,9 @@ function NetworksTable({ ...props }) {
                       {endpoint.url}:{endpoint.port}
                     </TableCell>
                     <TableCell className={classes.tableCell}>{endpoint.failures}</TableCell>
-                    <TableCell className={classes.tableCell}>{endpoint.ping === -1 ? 'Unknown' : `${endpoint.ping} ms`}</TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {endpoint.ping === -1 ? 'Unknown' : `${endpoint.ping} ms`}
+                    </TableCell>
                     <TableCell className={classes.tableCell}>
                       {active && active.network === network && active.endpoint.name === endpoint.name ? (
                         'Current Network'
