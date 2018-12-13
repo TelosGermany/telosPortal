@@ -1,7 +1,7 @@
 ## Initial Steps
 
 1.  Clone this repo
-2.  Move to the appropriate directory: `cd telosToolkit`.<br />
+2.  Move to the appropriate directory: `cd telosPortal`.<br />
 3.  Run `yarn` in order to install dependencies and clean the git repo.
     _At this point you can run `npm start` to see the example app at `http://localhost:3000`._
 4.  Run `yarn run format:js` prior to making commits for nice clean code    

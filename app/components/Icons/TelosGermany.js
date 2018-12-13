@@ -1,6 +1,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GenereosIcon from 'assets/img/genereosWhite.png';
+// TODO: Change icon and rename
+import TelosGermanyIcon from 'assets/img/telosGermany.png';
 
 const style = {
   logoMini: {
@@ -25,7 +26,7 @@ const style = {
 
 const Icon = (props) => {
   const {classes} = props;
-  return (<div className={classes.logoMini}><img src={GenereosIcon} className={classes.img}/></div>);
+  return (<div className={classes.logoMini}><img src={TelosGermanyIcon} className={classes.img}/></div>);
 };
 
 export default withStyles(style)(Icon);

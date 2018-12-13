@@ -23,7 +23,7 @@ import { setIdentity, disableWriter, toggleOffline } from 'containers/NetworkCli
 import NetworkIdentity from 'components/NetworkStatus/Identity';
 import NetworkStatus from 'components/NetworkStatus/Status';
 import VoteUs from 'components/Features/VoteUs';
-import GenereosIcon from 'components/Icons/Genereos';
+import TelosGermany from 'components/Icons/TelosGermany';
 // core components
 import HeaderLinks from 'components/Header/HeaderLinks';
 
@@ -87,7 +87,7 @@ class Sidebar extends React.Component {
           <ListItem className={`${classes.item} ${classes.userItem}`}>
             <NavLink
               to={'#'}
-              className={`${classes.itemLink} ${classes.userCollapseButton}`}
+              className={`${classes.itemLink} ${classes.userCollapseEOSutton}`}
               onClick={() => this.openCollapse('openAvatar')}>
               <ListItemText
                 primary={<NetworkIdentity />}
@@ -148,7 +148,7 @@ class Sidebar extends React.Component {
         <ListItem className={classes.item}>
           <div className={classes.itemLink}>
             <ListItemIcon className={classes.itemIcon}>
-              <GenereosIcon />
+              <TelosGermany />
             </ListItemIcon>
             <ListItemText primary={<VoteUs className={classes.itemText}/>} disableTypography className={classes.itemText} />
           </div>
@@ -261,10 +261,10 @@ class Sidebar extends React.Component {
     })}`;
     const brand = (
       <div className={logoClasses}>
-        <a href="https://www.genereos.io" className={logoMini}>
+        <a href="https://telosgermany.io" className={logoMini} target="_blank">
           <img src={logo} alt="logo" className={classes.img} />
         </a>
-        <a href="https://www.genereos.io" className={logoNormal}>
+        <a href="https://telosgermany.io" className={logoNormal} target="_blank">
           {logoText}
         </a>
       </div>

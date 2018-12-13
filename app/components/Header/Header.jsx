@@ -46,25 +46,9 @@ function Header({ ...props }) {
   const appBarClasses = cx({
     [` ${classes[color]}`]: color,
   });
-  const sidebarMinimize = `${classes.sidebarMinimize} ${cx({
-    [classes.sidebarMinimizeRTL]: rtlActive,
-  })}`;
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
-        <Hidden smDown>
-          <div className={sidebarMinimize}>
-            {props.miniActive ? (
-              <Button justIcon round color="white" onClick={props.sidebarMinimize}>
-                <ViewList className={classes.sidebarMiniIcon} />
-              </Button>
-            ) : (
-              <Button justIcon round color="white" onClick={props.sidebarMinimize}>
-                <MoreVert className={classes.sidebarMiniIcon} />
-              </Button>
-            )}
-          </div>
-        </Hidden>
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
           <Button href="#" className={classes.title} color="transparent">

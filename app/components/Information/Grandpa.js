@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+// TODO: Check if changes needed
 const Home = () => {
   return (
     <div>

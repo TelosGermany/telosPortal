@@ -1,5 +1,6 @@
 import React from 'react';
-// Poorman token info
+
+// TODO: Check if changes needed
 const PoormanInfo = () => {
   return (
     <div>
