@@ -19,7 +19,7 @@ function ResourcesTable({ ...props }) {
               <TableRow className={`${classes.tableRowHover}`}>
 
                 <TableCell className={classes.tableCell}>
-                  <h6>EOS</h6>
+                  <h6>TLOS</h6>
                 </TableCell>
                 <TableCell className={classes.tableCell}>
                   {account.balances.find(b=>b.code==='eosio.token') ? account.balances.find(b=>b.code==='eosio.token').amount : 'None'}

@@ -46,10 +46,10 @@ const makeTransaction = values => {
         receiver: values.name,
         stake_net_quantity: `${Number(values.net)
           .toFixed(4)
-          .toString()} EOS`,
+          .toString()} TLOS`,
         stake_cpu_quantity: `${Number(values.cpu)
           .toFixed(4)
-          .toString()} EOS`,
+          .toString()} TLOS`,
         transfer: values.transfer ? 1 : 0,
       },
     },
