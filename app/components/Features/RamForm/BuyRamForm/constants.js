@@ -1,6 +1,6 @@
 const units = {
   BYTE: 'bytes',
-  EOS: 'EOS',
+  TLOS: 'TLOS',
 };
 
 export { units };

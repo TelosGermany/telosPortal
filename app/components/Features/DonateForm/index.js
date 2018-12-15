@@ -33,7 +33,7 @@ const makeTransaction = (values, networkIdentity) => {
         memo: values.memo,
         quantity: `${Number(values.quantity)
           .toFixed(4)
-          .toString()} EOS`,
+          .toString()} TLOS`,
       },
     },
   ];

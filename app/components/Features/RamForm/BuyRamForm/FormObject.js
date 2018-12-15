@@ -26,7 +26,7 @@ const FormData = [
 
 const eosInput = {
   id: 'eosQuantity',
-  label: `Ram purchase (in ${units.EOS})`,
+  label: `Ram purchase (in ${units.TLOS})`,
   placeholder: 'How much RAM to puchase',
 };
 
