@@ -74,7 +74,7 @@ export class Notification extends React.Component {
           confirmBtnText="Thanks"
           confirmBtnCssClass={`${this.props.classes.button} ${this.props.classes.success}`}>
             {txid ? (
-              <a href={`https://bloks.io/transaction/${txid}`} target="new">
+              <a href={`https://telostracker.io/trx/${txid}`} target="new">
                 <h6>{txid}</h6>
               </a>
             ) : (
@@ -82,7 +82,7 @@ export class Notification extends React.Component {
                 {message ? `${JSON.stringify(message, null, 2)}` : ''}
               </pre>
             )}
-          <p>Thank you for using EOSToolkit.io</p>
+          <p>Thank you for using Telos Portal</p>
           <h6>Your votes support continued development of these tools</h6>
           <h5>
             <VoteUs />

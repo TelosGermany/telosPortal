@@ -17,12 +17,12 @@ export function* buildReader(activeNetwork) {
       broadcast: false,
       sign: false,
       chainId: activeNetwork.network.chainId,
-      keyPrefix: activeNetwork.network.prefix || 'EOS',
+      keyPrefix: activeNetwork.network.prefix || 'TLOS',
       httpEndpoint: `${activeNetwork.endpoint.protocol}://${activeNetwork.endpoint.url}:${activeNetwork.endpoint.port}`,
     };
 
     const networkReader = yield Eos(networkOptions);
-    const tokens = [];//yield call(fetchTokens, networkReader);
+    const tokens = []; // yield call(fetchTokens, networkReader);
     const claims = yield call(fetchClaims);
 
     yield put(enableReader(networkReader, tokens, claims));
@@ -48,14 +48,14 @@ export function* buildWriter(signer, activeNetwork) {
       host: activeNetwork.endpoint.url,
       port: activeNetwork.endpoint.port,
       chainId: activeNetwork.network.chainId,
-      keyPrefix: activeNetwork.network.prefix || 'TLOS'
+      keyPrefix: activeNetwork.network.prefix || 'TLOS',
     };
 
     const networkOptions = {
       broadcast: true,
       sign: true,
       chainId: activeNetwork.network.chainId,
-      keyPrefix: activeNetwork.network.prefix || 'TLOS'
+      keyPrefix: activeNetwork.network.prefix || 'TLOS',
     };
     const protocol = activeNetwork.endpoint.protocol;
     const networkWriter = signer.eos(signerClientConfig, Eos, networkOptions, protocol);
