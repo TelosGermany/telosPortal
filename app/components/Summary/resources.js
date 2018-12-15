@@ -11,10 +11,7 @@ import tableStyle from 'assets/jss/tableStyle';
 
 function ResourcesTable({ ...props }) {
   const { classes, account } = props;
-  if (account != null) {
-    console.log(account);
-    console.log(account.balances[0].split(' '));
-  }
+
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -25,7 +22,9 @@ function ResourcesTable({ ...props }) {
                 <h6>TLOS</h6>
               </TableCell>
               <TableCell className={classes.tableCell}>
-                {account.balances.length >= 1 ? account.balances[0].split(' ')[0] : 'None'}
+                {account.balances !== undefined && account.balances.length >= 1
+                  ? account.balances[0].split(' ')[0]
+                  : 'None'}
               </TableCell>
               <TableCell className={classes.tableCell}>
                 <h6>RAM</h6>
