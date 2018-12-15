@@ -16,7 +16,7 @@ function* getCurrency(token, name) {
     });
     return currencies;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return [];
   }
@@ -32,14 +32,17 @@ function* getAccountDetail(name) {
         return fork(getCurrency, token.account, name);
       })
     );
-    const currencies = yield join(...tokens);
+    let currencies = [];
+    if (tokens.length >= 1) {
+      currencies = yield join(...tokens);
+    }
     const balances = currencies.reduce((a, b) => a.concat(b), []);
     return {
       ...account,
       balances,
     };
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return {};
   }
@@ -62,7 +65,7 @@ function* performSearchPubkey() {
     const accounts = yield join(...details);
     yield put(lookupLoaded(accounts));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     yield put(lookupLoaded([{}]));
   }
@@ -82,7 +85,7 @@ function* performSearchAccount() {
     const account = yield call(getAccountDetail, accountName);
     yield put(lookupLoaded([account]));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     yield put(lookupLoaded([]));
   }

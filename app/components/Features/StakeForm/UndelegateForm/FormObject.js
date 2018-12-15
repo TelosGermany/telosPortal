@@ -16,13 +16,13 @@ const FormData = [
   },
   {
     id: 'cpu',
-    label: 'CPU Stake (in EOS)',
-    placeholder: 'How much EOS to unstake',
+    label: 'CPU Stake (in TLOS)',
+    placeholder: 'How much TLOS to unstake',
   },
   {
     id: 'net',
-    label: 'Net Stake (in EOS)',
-    placeholder: 'How much EOS to unstake',
+    label: 'Net Stake (in TLOS)',
+    placeholder: 'How much TLOSPurch to unstake',
   },
 ];
 

@@ -12,7 +12,7 @@ function* getRef() {
     const data = yield fetch(refUrl);
     const list = yield data.json();
     const formatted = Object.keys(list).map(ref => {
-      
+
       const prop = list[ref].proposal;
       const stats = list[ref].stats;
       let json = {};
@@ -37,7 +37,7 @@ function* getRef() {
     });
     yield put(fetchedRef(formatted));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     yield put(fetchedRef([]));
   }

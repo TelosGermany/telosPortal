@@ -27,7 +27,7 @@ export function* buildReader(activeNetwork) {
 
     yield put(enableReader(networkReader, tokens, claims));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
   }
 }
@@ -67,7 +67,7 @@ export function* buildWriter(signer, activeNetwork) {
       yield put(disableWriter());
     }
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
   }
 }

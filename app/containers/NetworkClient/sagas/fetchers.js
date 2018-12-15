@@ -55,7 +55,7 @@ export function* fetchNetworks() {
 
     yield put(loadedNetworks(networks, activeNetwork));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
   }
 }
@@ -110,7 +110,7 @@ export function* fetchLatency() {
       yield put(setNetwork(activeNetwork, false));
     }
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
   }
 }
@@ -162,7 +162,7 @@ export function* fetchTokens(reader) {
     const tokens = yield join(...info);
     return tokens;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return null;
   }
@@ -175,7 +175,7 @@ export function* fetchClaims() {
     const claims = yield data.json();
     return claims;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return [];
   }
@@ -221,7 +221,7 @@ export function* fetchIdentity(signer, activeNetwork) {
     }
     return null;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return null;
   }
@@ -329,7 +329,7 @@ export function* fetchAccount() {
       yield put(loadedAccount(null));
     }
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
   }
 }
