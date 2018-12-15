@@ -17,13 +17,13 @@ const makeTransaction = (networkIdentity, accountData) => {
     return { error: 'No scatter identity attached' };
   }
   const producers = accountData.voter_info ? accountData.voter_info.producers : [];
-  if (producers.includes('aus1genereos')) {
+  if (producers.includes('telosgermany')) {
     return { success: 'You already voted for us! Thank you!' };
   }
   if (producers.length > 29) {
     producers.pop();
   }
-  producers.push('aus1genereos');
+  producers.push('telosgermany');
   producers.sort();
   const transaction = [
     {
