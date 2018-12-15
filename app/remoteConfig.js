@@ -64,7 +64,7 @@ const claimsUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-claims/maste
 const tokensUrl = '';
 
 // const networksUrl = 'https://raw.githubusercontent.com/TelosGermany/network_list/master/networks.json';
-const networksUrl = 'https://raw.githubusercontent.com/RalfWeinand/network_list-1/master/networks.json';
+const networksUrl = 'https://raw.githubusercontent.com/TelosGermany/network_list/master/networks.json';
 
 const refUrl = 'https://s3.amazonaws.com/api.eosvotes.io/eosvotes/tallies/latest.json';
 
