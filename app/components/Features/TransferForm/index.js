@@ -21,11 +21,14 @@ import ToolBody from 'components/Tool/ToolBody';
 import FormObject from './FormObject';
 
 const makeTransaction = (values, networkAccount) => {
-  const token = networkAccount.balances.find(tk => tk.symbol === values.symbol);
-  const precision = token.amount.split(".")[1] ? token.amount.split(".")[1].length : 0;
+  let token = 0.0;
+  if (networkAccount.balances !== undefined && networkAccount.balances.length >= 1) {
+    token = networkAccount.balances[0];
+  }
+  const precision = token.split('.')[1] ? token.split('.')[1].length : 0;
   const transaction = [
     {
-      account: token.code || 'eosio.token',
+      account: 'eosio.token',
       name: 'transfer',
       data: {
         from: values.owner,
@@ -81,12 +84,12 @@ const enhance = compose(
       const { pushTransaction, networkAccount } = props;
       const transaction = makeTransaction(values, networkAccount);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       owner: props.networkIdentity ? props.networkIdentity.name : '',
       name: '',
-      symbol: 'EOS',
+      symbol: 'TLOS',
       quantity: '0',
       memo: '',
     }),
