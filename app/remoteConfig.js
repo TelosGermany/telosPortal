@@ -60,10 +60,12 @@ const airgrabs = [
   },
 ];
 
-const claimsUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-claims/master/claims.json';
-// TODO: Create own token list with icons etc
-const tokensUrl = 'https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json';
-const networksUrl = 'https://raw.githubusercontent.com/TelosGermany/network_list/master/networks.json';
+const claimsUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-claims/master/claims.json-DISABLED';
+const tokensUrl = '';
+
+// const networksUrl = 'https://raw.githubusercontent.com/TelosGermany/network_list/master/networks.json';
+const networksUrl = 'https://raw.githubusercontent.com/RalfWeinand/network_list-1/master/networks.json';
+
 const refUrl = 'https://s3.amazonaws.com/api.eosvotes.io/eosvotes/tallies/latest.json';
 
 // const airgrabsUrl = 'https://raw.githubusercontent.com/eoscafe/eos-airgrabs/master/airgrabs.json';

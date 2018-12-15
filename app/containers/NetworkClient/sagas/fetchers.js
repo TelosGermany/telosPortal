@@ -44,7 +44,7 @@ export function* fetchNetworks() {
     });
 
     // get default
-    const network = networks.find(n => n.network === 'eos' && n.type === 'testnet');
+    const network = networks.find(n => n.owner === 'TELOS' && n.type === 'mainnet');
     const endpoint = network.endpoints.find(e => e.name === 'Telos Germany');
 
     // build activeNetwork
@@ -149,7 +149,7 @@ export function* fetchTokens(reader) {
 
     const tokenList = [
       {
-        symbol: 'EOS',
+        symbol: 'TLOS',
         account: 'eosio.token',
       },
       ...list,
@@ -169,6 +169,7 @@ export function* fetchTokens(reader) {
 }
 
 export function* fetchClaims() {
+  /*
   try {
     const data = yield fetch(claimsUrl);
     const claims = yield data.json();
@@ -178,6 +179,7 @@ export function* fetchClaims() {
     console.error(err);
     return [];
   }
+  */
 }
 
 /*
@@ -268,25 +270,8 @@ function onlyUnique(value, index, self) {
 function* getAccountDetail(reader, name) {
   try {
     const account = yield reader.getAccount(name);
-    // const tokens = yield select(makeSelectTokens());
-    // const tokenData = yield all(
-    //   tokens.map(token => {
-    //     return fork(getCurrency, reader, token.account, name);
-    //   })
-    // );
-    //
-    // const currencies = yield join(...tokenData);
-    // const balances = currencies.reduce((a, b) => a.concat(b), []);//.filter( onlyUnique );
-    // const unique = [...new Set(balances.map(item => item.balance))];
-    // const final = unique.map(bal => {
-    //   const tokenFind = tokens.find(t=>t.symbol === bal.split(' ')[1]);
-    //   return {
-    //     account: tokenFind ? tokenFind.account : 'grandpacoins',
-    //     balance: bal,
-    //   }
-    //
-    // });
 
+    /*
     let body = { account: account.account_name };
 
     try {
@@ -311,13 +296,14 @@ function* getAccountDetail(reader, name) {
         };
       }
     } catch (err) {}
+    */
 
-    const data = yield fetch('https://eos.greymass.com/v1/chain/get_currency_balances', {
+    const data = yield fetch('https://apinode.telosgermany.io/v1/chain/get_currency_balance', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ account: account.account_name }),
     });
     const list = yield data.json();
     // console.log(list);
