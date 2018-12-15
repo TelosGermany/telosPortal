@@ -271,9 +271,8 @@ function* getAccountDetail(reader, name) {
   try {
     const account = yield reader.getAccount(name);
 
+    const body = { code: 'eosio.token', account: account.account_name, symbol: 'TLOS' };
     /*
-    let body = { account: account.account_name };
-
     try {
       const flare = yield fetch('https://api-pub.eosflare.io/v1/eosflare/get_account', {
         method: 'POST',
@@ -303,7 +302,7 @@ function* getAccountDetail(reader, name) {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
-      body: JSON.stringify({ account: account.account_name }),
+      body: JSON.stringify(body),
     });
     const list = yield data.json();
     // console.log(list);
