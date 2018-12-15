@@ -51,7 +51,7 @@ function* getProducers() {
     }
     yield put(fetchedProducers(producers));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error('An TelosPortal error occured - see details below:');
     console.error(err);
   }
 }

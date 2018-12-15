@@ -42,7 +42,7 @@ export function* pushTransaction(action) {
       yield sleep(1000);
       yield put(loadAccount());
     } catch (err) {
-      console.error('An EOSToolkit error occured - see details below:');
+      console.error('An TelosPortal error occured - see details below:');
       console.error(err);
       yield put(failureNotification(err));
     }
