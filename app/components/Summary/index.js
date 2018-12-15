@@ -20,7 +20,7 @@ import { makeSelectActiveNetwork, makeSelectAccount } from 'containers/NetworkCl
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Announcement from '@material-ui/icons/Announcement';
-import Warning from "components/Typography/Warning.jsx";
+import Warning from 'components/Typography/Warning.jsx';
 // core components
 import GridContainer from 'components/Grid/GridContainer';
 import GridItem from 'components/Grid/GridItem';
@@ -34,34 +34,29 @@ import userProfileStyles from './comingSoon';
 
 function Summary(props) {
   const { classes, account, network } = props;
-    return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader icon>
-                <CardIcon color="success">
-                  <AccountCircle />
-                </CardIcon>
-                <h5 className={classes.cardIconTitle}>
-                  {account ? (
-                    `${account.account_name} [${network.network.name} via ${network.endpoint.name}]`
-                  ) : ('Attach an Account')}
-
-                </h5>
-              </CardHeader>
-              <CardBody>
-
-                <ResourceTable account={account} />
-                <Warning>
-                  <h6><Announcement/> Token details powered by eosflare and greymass</h6>
-                </Warning>
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
-    );
+  return (
+    <div>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader icon>
+              <CardIcon color="success">
+                <AccountCircle />
+              </CardIcon>
+              <h5 className={classes.cardIconTitle}>
+                {account
+                  ? `${account.account_name} [${network.network.name} via ${network.endpoint.name}]`
+                  : 'Attach an Account'}
+              </h5>
+            </CardHeader>
+            <CardBody>
+              <ResourceTable account={account} />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+    </div>
+  );
 }
 
 const mapStateToProps = createStructuredSelector({
