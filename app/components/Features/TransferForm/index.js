@@ -25,7 +25,7 @@ const makeTransaction = (values, networkAccount) => {
   if (networkAccount.balances !== undefined && networkAccount.balances.length >= 1) {
     token = networkAccount.balances[0];
   }
-  const precision = token.split('.')[1] ? token.split('.')[1].length : 0;
+  const precision = token.split('.')[1] ? token.split('.')[1].split(' ')[0].length : 0;
   const transaction = [
     {
       account: 'eosio.token',
