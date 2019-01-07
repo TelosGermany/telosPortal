@@ -63,8 +63,8 @@ function clientReducer(state = initialState, action) {
     case LOADED_ACCOUNT:
       return state.set('networkAccount', action.networkAccount).set('accountLoading', false);
     case SET_NETWORK:
-      const validTime = (state.get('networkTime') + (1000*30)) < Date.now(); //wait 30 seconds between swaps
-      if(action.override || (!state.get('override') && validTime)) {
+      const validTime = state.get('networkTime') + 1000 * 30 < Date.now(); // wait 30 seconds between swaps
+      if (action.override || (!state.get('override') && validTime)) {
         return state
           .set('networkSelected', action.networkSelected)
           .set('networkReader', null)
@@ -72,10 +72,10 @@ function clientReducer(state = initialState, action) {
           .set('readerLoading', true)
           .set('writerLoading', true)
           .set('networkTime', Date.now())
-          .set('override', action.override ? true : false);
-      } else {
-        return state;
+          .set('override', !!action.override);
       }
+      return state;
+
     case SET_IDENTITY:
       return state
         .set('networkWriter', null)

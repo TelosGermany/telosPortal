@@ -40,7 +40,7 @@ const VotingTable = props => {
 
   const handleSubmit = () => {
     const transaction = makeTransaction();
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
   const handleReset = () => {

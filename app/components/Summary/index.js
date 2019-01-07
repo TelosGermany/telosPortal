@@ -19,8 +19,6 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectActiveNetwork, makeSelectAccount } from 'containers/NetworkClient/selectors';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Announcement from '@material-ui/icons/Announcement';
-import Warning from 'components/Typography/Warning.jsx';
 // core components
 import GridContainer from 'components/Grid/GridContainer';
 import GridItem from 'components/Grid/GridItem';

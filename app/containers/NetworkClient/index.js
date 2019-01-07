@@ -14,8 +14,6 @@ import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { setSigner, loadNetworks, loadAccount } from './actions';
 import saga from './sagas/watchers';
 
-
-
 // we inject out reducer at the root level for lazy loading order reasons
 
 export class NetworkClient extends React.Component {
@@ -25,15 +23,15 @@ export class NetworkClient extends React.Component {
     // start loading the reader asap
     this.props.loadNetworks();
 
-    ScatterJS.plugins( new ScatterEOS() );
+    ScatterJS.plugins(new ScatterEOS());
     ScatterJS.scatter.connect('TelosPortal').then(connected => {
-      if(connected){
-          this.props.setSigner(ScatterJS.scatter);
-          window.ScatterJS = null;
+      if (connected) {
+        this.props.setSigner(ScatterJS.scatter);
+        window.ScatterJS = null;
       }
     });
 
-    //this.interval = setInterval(() => this.props.loadAccount(), 10000);
+    // this.interval = setInterval(() => this.props.loadAccount(), 10000);
   }
 
   // componentWillUnmount() {

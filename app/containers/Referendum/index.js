@@ -13,8 +13,8 @@ import ReferendumForm from 'components/Features/ForumForms/Vote';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectReaderEnabled, makeSelectWriterEnabled } from 'containers/NetworkClient/selectors';
-import { makeSelectLoading, makeSelectRef, makeSelectSelection } from './selectors';
-import { fetchRef, selectRef } from './actions';
+import { makeSelectLoading, makeSelectRef } from './selectors';
+import { fetchRef } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -22,7 +22,7 @@ export class Referendum extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    //this.interval = setInterval(() => this.props.refreshRef(), 5000);
+    // this.interval = setInterval(() => this.props.refreshRef(), 5000);
     this.props.refreshRef();
   }
 

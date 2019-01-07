@@ -5,10 +5,9 @@
  */
 
 import { fromJS } from 'immutable';
-import { STAGE_TRANSACTION, SIGN_TRANSACTION, PUSH_TRANSACTION } from './constants';
 
 const initialState = fromJS({
-  transaction: null
+  transaction: null,
 });
 
 function OfflineClientReducer(state = initialState, action) {

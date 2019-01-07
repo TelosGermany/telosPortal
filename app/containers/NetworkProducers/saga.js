@@ -1,5 +1,5 @@
 import { makeSelectReader } from 'containers/NetworkClient/selectors';
-import { takeLatest, call, put, select, all, fork, join } from 'redux-saga/effects';
+import { takeLatest, put, select, all } from 'redux-saga/effects';
 import { FETCH_PRODUCERS } from './constants';
 import { fetchedProducers } from './actions';
 
@@ -39,7 +39,7 @@ function* getProducers() {
 
     while (data.more) {
       data = yield networkReader.getTableRows(producerTable(key));
-      if(data.more) {
+      if (data.more) {
         key = data.rows.pop().owner;
       }
       data.rows.map(row => {

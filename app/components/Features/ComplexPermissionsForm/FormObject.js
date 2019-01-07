@@ -2,8 +2,6 @@ import React from 'react';
 
 import ToolForm from 'components/Tool/ToolForm';
 import ToolInput from 'components/Tool/ToolInput';
-import GridContainer from 'components/Grid/GridContainer';
-import GridItem from 'components/Grid/GridItem';
 import Button from 'components/CustomButtons/Button';
 import AddCircle from '@material-ui/icons/AddCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
@@ -14,17 +12,20 @@ const StaticFields = [
     label: 'Account',
     placeholder: 'Account being updated',
     md: 6,
-  },{
+  },
+  {
     id: 'threshold',
     label: 'Threshold',
     placeholder: 'Threshold for this Permission',
     md: 6,
-  },{
+  },
+  {
     id: 'permission',
     label: 'Permission',
     placeholder: 'Permission to change (i.e. active)',
     md: 6,
-  },{
+  },
+  {
     id: 'parent',
     label: 'Parent',
     placeholder: 'Parent permission (i.e. owner)',
@@ -48,10 +49,11 @@ const WeightField = {
   sm: 2,
 };
 
-
-
 const FormObject = props => {
-  const { handleSubmit, inputManager: { inputs, addInputs, subInputs} } = props;
+  const {
+    handleSubmit,
+    inputManager: { inputs, addInputs, subInputs },
+  } = props;
 
   const addField = () => {
     addInputs();
@@ -63,27 +65,31 @@ const FormObject = props => {
 
     props.setValues({
       ...props.values,
-      ...fieldValues
+      ...fieldValues,
     });
-  }
+  };
 
   const subField = () => {
-    let values = props.values;
+    const values = props.values;
     delete values[`auth_value_${inputs}`];
     delete values[`auth_weight_${inputs}`];
 
     props.setValues({
-      ...values
+      ...values,
     });
 
     subInputs();
-  }
+  };
 
   const extraButton = () => {
     return (
       <React.Fragment>
-        <Button color="success" onClick={()=>addField()}><AddCircle/> Row</Button>
-        <Button color="danger" onClick={()=>subField()}><RemoveCircle/> Row</Button>
+        <Button color="success" onClick={() => addField()}>
+          <AddCircle /> Row
+        </Button>
+        <Button color="danger" onClick={() => subField()}>
+          <RemoveCircle /> Row
+        </Button>
       </React.Fragment>
     );
   };
@@ -93,7 +99,7 @@ const FormObject = props => {
     submitColor: 'rose',
     submitText: 'Update',
     extraButtons: extraButton,
-    md: 6
+    md: 6,
   };
 
   return (
@@ -101,13 +107,12 @@ const FormObject = props => {
       {StaticFields.map(form => {
         return <ToolInput key={form.id} {...form} {...props} />;
       })}
-      {[...Array(inputs)].map((x,i) =>
+      {[...Array(inputs)].map((x, i) => (
         <React.Fragment key={`field_${i}`}>
           <ToolInput id={`auth_value_${i}`} {...AuthField} {...props} />
           <ToolInput id={`auth_weight_${i}`} {...WeightField} {...props} />
         </React.Fragment>
-      )}
-
+      ))}
     </ToolForm>
   );
 };

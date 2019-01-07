@@ -81,9 +81,15 @@ const MultisigCreate = props => {
       <ToolSection lg={4}>
         <ToolBody color="info" header="Tutorial">
           <p>Review the transaction details.</p>
-          <p>Supply the single account name and permission (i.e. owner or active) that will ultimately authorize this transaction.</p>
+          <p>
+            Supply the single account name and permission (i.e. owner or active) that will ultimately authorize this
+            transaction.
+          </p>
           <p>Click Create JSON</p>
-          <p>A dialogue prompt will appear with the Transaction JSON. The JSON will also automatically download as a file.</p>
+          <p>
+            A dialogue prompt will appear with the Transaction JSON. The JSON will also automatically download as a
+            file.
+          </p>
           <p>Share this JSON file with each person who has to sign.</p>
           <p>Each person will sign using the Sign Transaction feature.</p>
         </ToolBody>
@@ -98,7 +104,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleTransaction: (data) => dispatch(stageTransaction(data)),
+    handleTransaction: data => dispatch(stageTransaction(data)),
   };
 }
 
@@ -116,7 +122,9 @@ const enhance = compose(
     mapPropsToValues: props => ({
       actor: '',
       permission: '',
-      transaction: props.transaction ? JSON.stringify(props.transaction,null,2) : 'No transaction available - Switch to multisig mode and use one of the toolkit features.',
+      transaction: props.transaction
+        ? JSON.stringify(props.transaction, null, 2)
+        : 'No transaction available - Switch to multisig mode and use one of the toolkit features.',
     }),
     validationSchema,
   })

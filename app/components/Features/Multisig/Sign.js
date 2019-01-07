@@ -32,7 +32,7 @@ const FormData = [
     multiline: true,
     rows: 30,
     md: 12,
-  }
+  },
 ];
 
 const FormObject = props => {
@@ -44,21 +44,21 @@ const FormObject = props => {
   };
 
   const handleFiles = files => {
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function(e) {
       console.log(reader.result);
       props.setValues({
         transaction: reader.result,
       });
-    }
+    };
     reader.readAsText(files[0]);
     console.log(files);
-  }
+  };
 
   return (
     <ToolForm {...formProps}>
       <ToolSection md={12}>
-        <ReactFileReader handleFiles={handleFiles} fileTypes='.json,.txt'>
+        <ReactFileReader handleFiles={handleFiles} fileTypes=".json,.txt">
           <Button>Load Transaction JSON</Button>
         </ReactFileReader>
       </ToolSection>
@@ -92,8 +92,14 @@ const MultisigSign = props => {
           <p>Load the Transaction JSON you were provided.</p>
           <p>Ensure Scatter is connected with the correct account to sign this transaction.</p>
           <p>Click Sign Transaction</p>
-          <p>Scatter will appear asking you to sign an arbitrary Buffer. This will appear like random numbers. This is acceptable, and matches the JSON you loaded.</p>
-          <p>A dialogue will appear with your Signature, and you will also automatically download a JSON file with this signature.</p>
+          <p>
+            Scatter will appear asking you to sign an arbitrary Buffer. This will appear like random numbers. This is
+            acceptable, and matches the JSON you loaded.
+          </p>
+          <p>
+            A dialogue will appear with your Signature, and you will also automatically download a JSON file with this
+            signature.
+          </p>
           <p>Provide this signature or signature file to the person sending the transaction.</p>
         </ToolBody>
       </ToolSection>
@@ -107,7 +113,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleTransaction: (data) => dispatch(signTransaction(data)),
+    handleTransaction: data => dispatch(signTransaction(data)),
   };
 }
 

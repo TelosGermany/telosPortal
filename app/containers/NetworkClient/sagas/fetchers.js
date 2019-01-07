@@ -1,17 +1,11 @@
 // import Ping from 'ping.js';
 import Ping from 'utils/ping';
 import { orderBy } from 'lodash';
-import { put, all, join, fork, select, call, spawn } from 'redux-saga/effects';
-import { tokensUrl, networksUrl, claimsUrl } from 'remoteConfig';
+import { put, all, join, fork, select, call } from 'redux-saga/effects';
+import { tokensUrl, networksUrl } from 'remoteConfig';
 
 import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
-import {
-  makeSelectIdentity,
-  makeSelectReader,
-  makeSelectTokens,
-  makeSelectNetworks,
-  makeSelectActiveNetwork,
-} from '../selectors';
+import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
 
 /*
 *

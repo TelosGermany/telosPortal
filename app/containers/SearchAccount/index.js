@@ -29,7 +29,6 @@ function LoadingSpinner(props) {
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class SearchAccount extends React.Component {
-
   render() {
     return (
       <div>

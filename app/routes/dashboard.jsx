@@ -11,16 +11,9 @@ import SimplePermissions from 'components/Features/SimplePermissionsForm';
 import ComplexPermissions from 'components/Features/ComplexPermissionsForm';
 import LinkAuth from 'components/Features/LinkAuthForm';
 import ClaimRewards from 'components/Features/ClaimRewardsForm';
-import BidName from 'components/Features/BidNameForm';
 import Airgrab from 'components/Features/AirgrabForm';
 import Donate from 'components/Features/DonateForm';
 import VotingTable from 'containers/NetworkProducers';
-
-// EOSIO FORUM
-import ForumStatus from 'components/Features/ForumForms/Status';
-import ForumPost from 'components/Features/ForumForms/Post';
-import ForumProposal from 'components/Features/ForumForms/Propose';
-import ForumVote from 'components/Features/ForumForms/Vote';
 
 // MULTISIG - OFFLINE SIGN
 import MultisigCreate from 'components/Features/Multisig/Create';
@@ -32,37 +25,22 @@ import Network from 'containers/Network';
 import SearchAccount from 'containers/SearchAccount';
 
 // Pages
-import GovernancePage from 'components/Pages/GovernancePage';
 import FeaturesPage from 'components/Pages/FeaturesPage';
 
 // external Features
 import ProxyTable from 'containers/ProxyInfo';
-import HorusPay from 'containers/HorusPay';
-import Karma from 'containers/Karma';
-import Referendum from 'containers/Referendum';
-import Grandpa from 'containers/Grandpa';
 
 // @material-ui/icons
 import {
   Dashboard,
-  AccountBalance,
   Search,
   PersonAdd,
   AssignmentInd,
   AssignmentTurnedIn,
   Payment,
   DeveloperBoard,
-  Forum,
-  Favorite,
-  CloudDownload,
-  Settings,
   VpnKey,
-  Games,
-  Feedback,
-  Extension,
 } from '@material-ui/icons';
-import HorusIcon from 'components/Icons/Horus';
-import KarmaIcon from 'components/Icons/Karma';
 
 // TODO: Check whats needed for first release
 
@@ -81,46 +59,13 @@ const dashRoutes = [
     icon: Feedback,
     component: Referendum,
   },
-
   {
     path: '/donate',
     name: 'Donate',
     icon: Favorite,
     component: Donate,
   },
-  {
-    path: '/governance',
-    name: 'Governance',
-    icon: AccountBalance,
-    component: GovernancePage,
-  },
-  {
-    collapse: true,
-    path: '/dapps',
-    name: 'Dapps',
-    state: 'openDapps',
-    icon: Extension,
-    views: [
-      {
-        path: '/dapps/karma',
-        name: 'KARMA',
-        mini: 'K',
-        component: Karma,
-      },
-      {
-        path: '/dapps/horuspay',
-        name: 'HorusPay',
-        mini: 'HP',
-        component: HorusPay,
-      },
-      {
-        path: '/dapps/grandpacoins',
-        name: 'GrandpaCoins',
-        mini: 'GC',
-        component: Grandpa,
-      },
-    ],
-  }, */
+  */
   /*
   {
     path: '/airgrab',
@@ -230,40 +175,6 @@ const dashRoutes = [
       },
     ],
   },
-  /*
-  {
-    collapse: true,
-    path: '/community',
-    name: 'Community Features',
-    state: 'openCommunity',
-    icon: Forum,
-    views: [
-      {
-        path: '/community/forum/status',
-        name: 'Forum Status',
-        mini: 'FS',
-        component: ForumStatus,
-      },
-      {
-        path: '/community/forum/post',
-        name: 'Forum Post',
-        mini: 'FP',
-        component: ForumPost,
-      },
-      {
-        path: '/community/forum/proposal',
-        name: 'Forum Proposal',
-        mini: 'Pr',
-        component: ForumProposal,
-      },
-      {
-        path: '/community/bidname',
-        name: 'Premium Names',
-        mini: 'PN',
-        component: BidName,
-      },
-    ],
-  }, */
   {
     collapse: true,
     path: '/multisig',

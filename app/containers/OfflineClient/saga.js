@@ -1,18 +1,23 @@
-import { makeSelectReader, makeSelectTransaction, makeSelectSigner, makeSelectIdentity, makeSelectActiveNetwork } from 'containers/NetworkClient/selectors';
-import { takeLatest, call, put, select, all, fork, join } from 'redux-saga/effects';
+import {
+  makeSelectReader,
+  makeSelectSigner,
+  makeSelectIdentity,
+  makeSelectActiveNetwork,
+} from 'containers/NetworkClient/selectors';
+import { takeLatest, put, select, all, fork, join } from 'redux-saga/effects';
 import { failureNotification, loadingNotification, successNotification } from 'containers/Notification/actions';
 import fileDownload from 'js-file-download';
 
 import { STAGE_TRANSACTION, SIGN_TRANSACTION, PUSH_TRANSACTION } from './constants';
 
-//actually offline transactions
+// actually offline transactions
 export function* stageTransaction(action) {
   yield put(loadingNotification());
   try {
-    const transaction = JSON.parse(action.data.transaction);//yield select(makeSelectTransaction());
+    const transaction = JSON.parse(action.data.transaction); // yield select(makeSelectTransaction());
     const networkReader = yield select(makeSelectReader());
 
-    if (!networkReader || !transaction ) {
+    if (!networkReader || !transaction) {
       throw { message: 'Reader is not enabled - check your network connection' };
     }
     if (transaction.error) {
@@ -26,16 +31,15 @@ export function* stageTransaction(action) {
     const actions = transaction.map(tx => {
       return {
         ...tx,
-        authorization: [{actor: action.data.actor, permission: action.data.permission}],
+        authorization: [{ actor: action.data.actor, permission: action.data.permission }],
       };
     });
-    const res = yield networkReader.transaction({ actions },{broadcast: false, sign: false, expireInSeconds: 3600});
+    const res = yield networkReader.transaction({ actions }, { broadcast: false, sign: false, expireInSeconds: 3600 });
     const data = JSON.stringify(res.transaction.transaction, null, 2);
-    const filename = `tx-${action.data.actor}-${(new Date()).getTime()}.json`;
+    const filename = `tx-${action.data.actor}-${new Date().getTime()}.json`;
 
-    fileDownload(data,filename,'application/json');
+    fileDownload(data, filename, 'application/json');
     yield put(successNotification(res.transaction.transaction));
-
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
     console.error(err);
@@ -43,7 +47,7 @@ export function* stageTransaction(action) {
   }
 }
 
-//actually offline transactions
+// actually offline transactions
 export function* signTransaction(action) {
   yield put(loadingNotification());
   try {
@@ -52,31 +56,36 @@ export function* signTransaction(action) {
     const identity = yield select(makeSelectIdentity());
     const network = yield select(makeSelectActiveNetwork());
 
-    if(!networkReader || !signer || !identity) {
-      throw { message: 'Require network connection and identity'}
+    if (!networkReader || !signer || !identity) {
+      throw { message: 'Require network connection and identity' };
     }
 
-    //sign a transaction json
+    // sign a transaction json
     const chainId = network.network.chainId;
     const transaction = JSON.parse(action.data.transaction);
-    const abis = yield all(transaction.actions.map(action=>{
-      return fork(networkReader.fc.abiCache.abiAsync,action.account);
-    }));
+    const abis = yield all(
+      transaction.actions.map(action => {
+        return fork(networkReader.fc.abiCache.abiAsync, action.account);
+      })
+    );
     yield join(...abis);
 
-    const chainIdBuf = Buffer.from(chainId,'hex');
-    const packedContextFreeData = Buffer.from(new Uint8Array(32)) // TODO
-    let buf = networkReader.fc.toBuffer('transaction',transaction);
-    let signBuf = Buffer.concat([chainIdBuf, buf, packedContextFreeData]);
-    let signature = yield signer.getArbitrarySignature(identity.publicKey,signBuf,'Offline signing of multisig action',false);
-
+    const chainIdBuf = Buffer.from(chainId, 'hex');
+    const packedContextFreeData = Buffer.from(new Uint8Array(32)); // TODO
+    const buf = networkReader.fc.toBuffer('transaction', transaction);
+    const signBuf = Buffer.concat([chainIdBuf, buf, packedContextFreeData]);
+    const signature = yield signer.getArbitrarySignature(
+      identity.publicKey,
+      signBuf,
+      'Offline signing of multisig action',
+      false
+    );
 
     const data = JSON.stringify(signature, null, 2);
-    const filename = `signature-${identity.name}-${(new Date()).getTime()}.json`;
+    const filename = `signature-${identity.name}-${new Date().getTime()}.json`;
 
-    fileDownload(data,filename,'application/json');
+    fileDownload(data, filename, 'application/json');
     yield put(successNotification(signature));
-
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
     console.error(err);
@@ -84,30 +93,32 @@ export function* signTransaction(action) {
   }
 }
 
-//push transactions
+// push transactions
 export function* pushTransaction(action) {
   yield put(loadingNotification());
   try {
     const networkReader = yield select(makeSelectReader());
-    if (!networkReader ) {
+    if (!networkReader) {
       throw { message: 'Reader is not enabled - check your network connection' };
     }
-    const signatures = action.data.signatures.replace(/[\n\r]/g,'').replace(/['"]+/g,'').trim().split(',');
+    const signatures = action.data.signatures
+      .replace(/[\n\r]/g, '')
+      .replace(/['"]+/g, '')
+      .trim()
+      .split(',');
     const transaction = {
-      compression: "none",
+      compression: 'none',
       transaction: JSON.parse(action.data.transaction),
-      signatures
-    }
+      signatures,
+    };
     const res = yield networkReader.pushTransaction(transaction);
-    yield put(successNotification({TransactionId: res.transaction_id}));
-
+    yield put(successNotification({ TransactionId: res.transaction_id }));
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     yield put(failureNotification(err));
   }
 }
-
 
 function* watchStageTransaction() {
   yield takeLatest(STAGE_TRANSACTION, stageTransaction);
@@ -126,5 +137,5 @@ function* watchPushTransaction() {
 //
 
 export default function* rootSaga() {
-  yield all([watchStageTransaction(),watchSignTransaction(),watchPushTransaction()]);
+  yield all([watchStageTransaction(), watchSignTransaction(), watchPushTransaction()]);
 }

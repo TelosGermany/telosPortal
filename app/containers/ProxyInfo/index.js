@@ -13,8 +13,8 @@ import ProxyTable from 'components/Features/ProxyTable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectReaderEnabled, makeSelectWriterEnabled } from 'containers/NetworkClient/selectors';
-import { makeSelectLoading, makeSelectProxies, makeSelectSelection } from './selectors';
-import { fetchProxies, selectProxies } from './actions';
+import { makeSelectLoading, makeSelectProxies } from './selectors';
+import { fetchProxies } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
