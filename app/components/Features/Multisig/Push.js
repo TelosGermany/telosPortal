@@ -40,7 +40,7 @@ const FormData = [
     multiline: true,
     rows: 30,
     md: 12,
-  }
+  },
 ];
 
 const FormObject = props => {
@@ -53,26 +53,31 @@ const FormObject = props => {
 
   const handleFiles = files => {
     try {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.onload = function(e) {
         const values = props.values;
         props.setValues({
           signatures: values.signatures,
           transaction: reader.result,
         });
-      }
+      };
       reader.readAsText(files[0]);
-    } catch(c) {
-      //something went wrong
+    } catch (c) {
+      // something went wrong
     }
-  }
+  };
 
   const handleSigs = files => {
     try {
       const values = props.values;
-      const curr = values.signatures ? values.signatures.replace(/[\n\r]/g,'').trim().split(',') : [];
+      const curr = values.signatures
+        ? values.signatures
+            .replace(/[\n\r]/g, '')
+            .trim()
+            .split(',')
+        : [];
 
-      var reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = function(e) {
         curr.push(JSON.parse(reader.result));
@@ -83,24 +88,24 @@ const FormObject = props => {
           signatures,
           transaction: values.transaction,
         });
-      }
+      };
 
       reader.readAsText(files[0]);
-    } catch(c) {
-      //something went wrong
+    } catch (c) {
+      // something went wrong
     }
-  }
+  };
 
   return (
     <ToolForm {...formProps}>
       <ToolSection md={12}>
-        <ReactFileReader handleFiles={handleSigs} fileTypes='.json,.txt'>
+        <ReactFileReader handleFiles={handleSigs} fileTypes=".json,.txt">
           <Button>Add Signature</Button>
         </ReactFileReader>
       </ToolSection>
       <ToolInput {...FormData[0]} {...props} />
       <ToolSection md={12}>
-        <ReactFileReader handleFiles={handleFiles} fileTypes='.json,.txt'>
+        <ReactFileReader handleFiles={handleFiles} fileTypes=".json,.txt">
           <Button>Load Transaction JSON</Button>
         </ReactFileReader>
       </ToolSection>
@@ -144,7 +149,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleTransaction: (data) => dispatch(pushTransaction(data)),
+    handleTransaction: data => dispatch(pushTransaction(data)),
   };
 }
 

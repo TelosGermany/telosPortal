@@ -53,9 +53,9 @@ const validationSchema = ({ unit: { isEOS } }) => {
 
 const BuyRamForm = props => {
   return (
-      <ToolBody color="warning" icon={AddCircle} header="Buy RAM">
-        <FormObject {...props} />
-      </ToolBody>
+    <ToolBody color="warning" icon={AddCircle} header="Buy RAM">
+      <FormObject {...props} />
+    </ToolBody>
   );
 };
 
@@ -90,7 +90,7 @@ const enhance = compose(
       setSubmitting(false);
       const transaction = makeTransaction(values, isEOS);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       byteQuantity: 8192,

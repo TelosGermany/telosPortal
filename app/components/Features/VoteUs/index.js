@@ -62,7 +62,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushTransaction: (transaction,history) => dispatch(sendTransaction(transaction,history)),
+    pushTransaction: (transaction, history) => dispatch(sendTransaction(transaction,history)),
   };
 }
 

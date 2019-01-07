@@ -14,17 +14,19 @@ const FormData = [
     label: 'Account Name',
     placeholder: 'Account name to unlink',
     md: 12,
-  },{
+  },
+  {
     id: 'code',
     label: 'Contract Name',
     placeholder: 'Contract account name (i.e. eosio.token)',
     md: 6,
-  },{
+  },
+  {
     id: 'type',
     label: 'Contract Action',
     placeholder: 'Contract action name (i.e. transfer)',
     md: 6,
-  }
+  },
 ];
 
 const FormObject = props => {
@@ -49,7 +51,7 @@ const makeTransaction = values => {
       account: 'eosio',
       name: 'unlinkauth',
       data: {
-        ...values
+        ...values,
       },
     },
   ];
@@ -80,7 +82,7 @@ const enhance = compose(
       const { pushTransaction } = props;
       const transaction = makeTransaction(values);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       account: props.networkIdentity ? props.networkIdentity.name : '',

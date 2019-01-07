@@ -5,12 +5,16 @@
  *                   fails to an Error.
  */
 const request_image = url => {
-    return new Promise(function(resolve, reject) {
-        var img = new Image();
-        img.onload = function() { resolve(img); };
-        img.onerror = function() { reject(url); };
-        img.src = url;
-    });
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = function() {
+      resolve(img);
+    };
+    img.onerror = function() {
+      reject(url);
+    };
+    img.src = url;
+  });
 };
 
 /**
@@ -20,18 +24,22 @@ const request_image = url => {
  * @return {Promise} promise that resolves to a ping (ms, float).
  */
 const ping = (url, multiplier) => {
-    return new Promise(function(resolve, reject) {
-        var start = (new Date()).getTime();
-        var response = function() {
-            var delta = ((new Date()).getTime() - start);
-            delta *= (multiplier || 1);
-            resolve(delta);
-        };
-        request_image(url).then(response).catch(response);
+  return new Promise((resolve, reject) => {
+    const start = new Date().getTime();
+    const response = function() {
+      let delta = new Date().getTime() - start;
+      delta *= multiplier || 1;
+      resolve(delta);
+    };
+    request_image(url)
+      .then(response)
+      .catch(response);
 
-        // Set a timeout for max-pings, 5s.
-        setTimeout(function() { reject(Error('Timeout')); }, 5000);
-    });
+    // Set a timeout for max-pings, 5s.
+    setTimeout(() => {
+      reject(Error('Timeout'));
+    }, 5000);
+  });
 };
 
 export default ping;

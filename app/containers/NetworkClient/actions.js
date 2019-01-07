@@ -78,7 +78,7 @@ export function loadedAccount(networkAccount) {
   };
 }
 
-export function setNetwork(networkSelected,override) {
+export function setNetwork(networkSelected, override) {
   return {
     type: SET_NETWORK,
     networkSelected,
@@ -92,7 +92,7 @@ export function setIdentity() {
   };
 }
 
-export function pushTransaction(transaction,history) {
+export function pushTransaction(transaction, history) {
   return {
     type: PUSH_TRANSACTION,
     transaction,

@@ -1,6 +1,6 @@
 import Eos from 'eosjs';
 import { put, call } from 'redux-saga/effects';
-import { fetchTokens, fetchClaims, fetchIdentity } from './fetchers';
+import { fetchClaims, fetchIdentity } from './fetchers';
 import { enableReader, enableWriter, disableWriter } from '../actions';
 
 /*

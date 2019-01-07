@@ -14,13 +14,13 @@ import reducer from './reducer';
 import saga from './saga';
 
 const OfflineClient = () => {
-  return('');
-}
+  return '';
+};
 
 const withReducer = injectReducer({ key: 'OfflineClient', reducer });
 const withSaga = injectSaga({ key: 'OfflineClient', saga });
 
 export default compose(
   withReducer,
-  withSaga,
+  withSaga
 )(OfflineClient);

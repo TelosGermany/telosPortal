@@ -16,7 +16,6 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'perfect-scrollbar';

@@ -11,14 +11,12 @@ import * as Yup from 'yup';
 
 // @material-ui/icons
 import CardGiftcard from '@material-ui/icons/CardGiftcard';
-import Favorite from '@material-ui/icons/Favorite';
 
 import Tool from 'components/Tool/Tool';
 import ToolSection from 'components/Tool/ToolSection';
 import ToolBody from 'components/Tool/ToolBody';
 
 import Donate from 'components/Information/Donate';
-import BlockOneLetter from 'components/Information/BlockOneLetter';
 
 import FormObject from './FormObject';
 
@@ -66,7 +64,7 @@ const enhance = compose(
       const { pushTransaction, networkIdentity } = props;
       const transaction = makeTransaction(values, networkIdentity);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: () => ({
       quantity: '1',

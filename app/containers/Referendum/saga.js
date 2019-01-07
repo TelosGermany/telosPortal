@@ -1,5 +1,4 @@
-import { makeSelectReader, makeSelectIdentity } from 'containers/NetworkClient/selectors';
-import { takeLatest, call, put, select, all, fork, join } from 'redux-saga/effects';
+import { takeLatest, put, all } from 'redux-saga/effects';
 import { FETCH_REF } from './constants';
 import { fetchedRef } from './actions';
 import { refUrl } from 'remoteConfig';
@@ -8,18 +7,16 @@ import { refUrl } from 'remoteConfig';
 //
 function* getRef() {
   try {
-
     const data = yield fetch(refUrl);
     const list = yield data.json();
     const formatted = Object.keys(list).map(ref => {
-
       const prop = list[ref].proposal;
       const stats = list[ref].stats;
       let json = {};
       try {
         json = JSON.parse(prop.proposal_json);
-      } catch(err) {}
-      const content = json.content ? json.content : "No content";
+      } catch (err) {}
+      const content = json.content ? json.content : 'No content';
       return {
         name: prop.proposal_name,
         proposer: prop.proposer,
@@ -29,11 +26,11 @@ function* getRef() {
         content,
         votes_yes: stats.votes[1] || 0,
         votes_no: stats.votes[0] || 0,
-        votes_total: stats.votes["total"] || 0,
+        votes_total: stats.votes.total || 0,
         weight_yes: stats.staked[1] || 0,
         weight_no: stats.staked[0] || 0,
-        weight_total: stats.staked["total"] || 0,
-      }
+        weight_total: stats.staked.total || 0,
+      };
     });
     yield put(fetchedRef(formatted));
   } catch (err) {

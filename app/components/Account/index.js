@@ -25,6 +25,7 @@ import regularFormsStyle from 'assets/jss/regularFormsStyle';
 
 import ResourceTable from 'components/AccountTables/resources';
 import BalancesTable from 'components/AccountTables/balances';
+
 const Account = props => {
   const { classes, account, showJson, toggleVisibility } = props;
   if (!account) {

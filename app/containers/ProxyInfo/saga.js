@@ -1,16 +1,15 @@
 import { makeSelectReader } from 'containers/NetworkClient/selectors';
-import { takeLatest, call, put, select, all, fork, join } from 'redux-saga/effects';
+import { takeLatest, put, select, all } from 'redux-saga/effects';
 import { FETCH_PROXIES } from './constants';
 import { fetchedProxies } from './actions';
 
 const proxyTable = {
-    json: true,
-    scope: 'regproxyinfo',
-    code: 'regproxyinfo',
-    table: 'proxies',
-    limit: 500
-}
-
+  json: true,
+  scope: 'regproxyinfo',
+  code: 'regproxyinfo',
+  table: 'proxies',
+  limit: 500,
+};
 
 //
 // Get the network Proxies
