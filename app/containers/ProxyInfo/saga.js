@@ -5,8 +5,8 @@ import { fetchedProxies } from './actions';
 
 const proxyTable = {
   json: true,
-  scope: 'regproxyinfo',
-  code: 'regproxyinfo',
+  scope: 'tlsproxyinfo',
+  code: 'tlsproxyinfo',
   table: 'proxies',
   limit: 500,
 };

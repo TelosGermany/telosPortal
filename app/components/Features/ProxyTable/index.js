@@ -67,7 +67,7 @@ const HorusPay = props => {
           icon={AssignmentTurnedIn}
           header="Registered Proxies"
           subheader=" - Select one to vote for you!">
-          <h5>Click the account name to view more info at telostracker.io. Select a proxy to make it your proxy!</h5>
+          <h5>Click the account name to view more info at telos.eosx.io. Select a proxy to make it your proxy!</h5>
           <ReactTable
             data={data}
             filterable
@@ -79,7 +79,7 @@ const HorusPay = props => {
                 width: 150,
                 Cell: row => {
                   return (
-                    <a href={`https://telostracker.io/account/${row.value}`} target="new" style={{ color: 'black' }}>
+                    <a href={`https://telos.eosx.io/account/${row.value}`} target="new" style={{ color: 'black' }}>
                       {row.value}
                     </a>
                   );

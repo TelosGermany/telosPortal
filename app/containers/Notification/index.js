@@ -54,7 +54,6 @@ export class Notification extends React.Component {
           onConfirm={() => closeAll()}
           onCancel={() => closeAll()}
           confirmBtnText="Hide"
-          // onCancel={() => closeAll()}
           confirmBtnCssClass={`${this.props.classes.button} ${this.props.classes.info}`}>
           <h5>Scatter should appear shortly to confirm this action.</h5>
           <h6>Your transaction will be sent to the network afterwards</h6>
@@ -74,7 +73,7 @@ export class Notification extends React.Component {
           confirmBtnText="Thanks"
           confirmBtnCssClass={`${this.props.classes.button} ${this.props.classes.success}`}>
           {txid ? (
-            <a href={`https://telostracker.io/trx/${txid}`} target="new">
+            <a href={`https://telos.eosx.io/tx/${txid}`} target="new">
               <h6>{txid}</h6>
             </a>
           ) : (
