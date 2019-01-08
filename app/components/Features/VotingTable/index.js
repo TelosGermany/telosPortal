@@ -63,7 +63,7 @@ const VotingTable = props => {
     setProducers(selectedProducers);
   };
 
-  const data = producers.map(producer => {
+  const data = producers.sort((a, b) => b.vote_percent - a.vote_percent).map(producer => {
     let accountVote = [];
     try {
       accountVote = networkAccount.voter_info.producers;
@@ -89,6 +89,7 @@ const VotingTable = props => {
           </a>
         </div>
       ),
+      position: producers.indexOf(producer) + 1,
     };
   });
 
@@ -131,6 +132,13 @@ const VotingTable = props => {
             filterable
             noDataText={<CircularProgress color="secondary" />}
             columns={[
+              {
+                Header: 'Position',
+                accessor: 'position',
+                Cell: row => (
+                  <span>{row.value}</span>
+                ),
+              },
               {
                 Header: 'Name',
                 accessor: 'owner',
