@@ -135,9 +135,7 @@ const VotingTable = props => {
               {
                 Header: 'Position',
                 accessor: 'position',
-                Cell: row => (
-                  <span>{row.value}</span>
-                ),
+                Cell: row => <span>{row.value}</span>,
               },
               {
                 Header: 'Name',
