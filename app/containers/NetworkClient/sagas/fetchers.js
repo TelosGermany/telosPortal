@@ -2,7 +2,7 @@
 import Ping from 'utils/ping';
 import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
-import { tokensUrl, networksUrl } from 'remoteConfig';
+import { tokensUrl, networksUrl, claimsUrl } from 'remoteConfig';
 
 import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
 import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
@@ -163,7 +163,6 @@ export function* fetchTokens(reader) {
 }
 
 export function* fetchClaims() {
-  /*
   try {
     const data = yield fetch(claimsUrl);
     const claims = yield data.json();
@@ -173,7 +172,6 @@ export function* fetchClaims() {
     console.error(err);
     return [];
   }
-  */
 }
 
 /*

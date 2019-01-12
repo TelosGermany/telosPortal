@@ -71,6 +71,7 @@ const makeClaim = (values, networkIdentity) => {
   return transaction;
 };
 
+// TODO: Check if ClaimsTable is needed
 const AirgrabForm = props => {
   const { pushTransaction, networkIdentity, networkAccount } = props;
   const handleSubmit = values => {
@@ -105,14 +106,6 @@ const AirgrabForm = props => {
     </Tool>
   );
 };
-
-/*
-<ToolSection lg={4}>
-  <ToolBody header="Poorman Token">
-    <PoormanInfo />
-  </ToolBody>
-</ToolSection>
-*/
 
 const mapStateToProps = createStructuredSelector({
   claims: makeSelectClaims(),
