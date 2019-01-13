@@ -14,11 +14,10 @@ import Tool from 'components/Tool/Tool';
 import ToolSection from 'components/Tool/ToolSection';
 import ToolBody from 'components/Tool/ToolBody';
 
-// import PoormanInfo from 'components/Information/PoormanInfo';
 import Disclaimer from 'components/Information/Disclaimer';
 
 import AirgrabTable from './AirgrabTable';
-import ClaimsTable from './ClaimsTable';
+// import ClaimsTable from './ClaimsTable';
 
 const makeTransaction = (values, networkIdentity) => {
   let data = null;
@@ -56,6 +55,7 @@ const makeTransaction = (values, networkIdentity) => {
   return transaction;
 };
 
+/*
 const makeClaim = (values, networkIdentity) => {
   const data = {
     owner: networkIdentity ? networkIdentity.name : '',
@@ -70,18 +70,20 @@ const makeClaim = (values, networkIdentity) => {
   ];
   return transaction;
 };
+*/
 
-// TODO: Check if ClaimsTable is needed
 const AirgrabForm = props => {
   const { pushTransaction, networkIdentity, networkAccount } = props;
   const handleSubmit = values => {
     const transaction = makeTransaction(values, networkIdentity);
     pushTransaction(transaction, props.history);
   };
+  /*
   const handleClaims = values => {
     const transaction = makeClaim(values, networkIdentity);
     pushTransaction(transaction, props.history);
   };
+  */
   return (
     <Tool>
       <ToolSection lg={8}>
@@ -91,9 +93,11 @@ const AirgrabForm = props => {
           <Disclaimer />
           <AirgrabTable handleSubmit={handleSubmit} account={networkAccount} />
           <p>
-            Have an Airgrab you want here? Email us: <a href="mailto:contact@genereos.io">contact@genereos.io</a>
+            Have an Airgrab you want here? Email us:{' '}
+            <a href="mailto:contact@telosgermany.io">contact@telosgermany.io</a>
           </p>
         </ToolBody>
+        {/*
         <ToolBody color="warning" icon={CloudDownload} header="Claim your Tokens!">
           <h6>Note: You can only claim a token you have already received.</h6>
           <h6>
@@ -102,6 +106,7 @@ const AirgrabForm = props => {
           <Disclaimer />
           <ClaimsTable handleSubmit={handleClaims} account={networkAccount} claims={props.claims} />
         </ToolBody>
+        */}
       </ToolSection>
     </Tool>
   );
