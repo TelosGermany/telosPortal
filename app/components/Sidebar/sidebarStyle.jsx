@@ -297,6 +297,8 @@ const sidebarStyle = theme => ({
   },
   userItemText: {
     lineHeight: '22px',
+    fontSize: 'smaller',
+    fontWeight: 'bold',
   },
   itemTextRTL: {
     marginRight: '45px',
