@@ -18,7 +18,7 @@ export function* pushTransaction(action) {
       const transaction = yield select(makeSelectTransaction());
       const networkWriter = yield select(makeSelectWriter());
       if (!networkWriter || !transaction || !networkIdentity) {
-        throw { message: 'Writing is not enabled - check your Scatter connection' };
+        throw { message: 'Writing is not enabled - check your Scatter respectively Sqrl connection' };
       }
       if (transaction.error) {
         throw { message: transaction.error };
