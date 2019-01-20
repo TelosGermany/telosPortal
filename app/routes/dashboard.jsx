@@ -12,7 +12,7 @@ import ComplexPermissions from 'components/Features/ComplexPermissionsForm';
 import LinkAuth from 'components/Features/LinkAuthForm';
 import ClaimRewards from 'components/Features/ClaimRewardsForm';
 import Airgrab from 'components/Features/AirgrabForm';
-import Donate from 'components/Features/DonateForm';
+import Monitor from 'components/Features/BlockchainMonitor';
 import VotingTable from 'containers/NetworkProducers';
 
 // MULTISIG - OFFLINE SIGN
@@ -40,6 +40,7 @@ import {
   Payment,
   DeveloperBoard,
   VpnKey,
+  DesktopMac,
 } from '@material-ui/icons';
 
 // TODO: Check whats needed for first release
@@ -73,6 +74,12 @@ const dashRoutes = [
     icon: CloudDownload,
     component: Airgrab,
   }, */
+  {
+    path: '/monitor',
+    name: 'Monitor',
+    icon: DesktopMac,
+    component: Monitor,
+  },
   {
     path: '/search',
     name: 'Find Accounts',

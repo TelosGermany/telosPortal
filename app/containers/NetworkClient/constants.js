@@ -30,3 +30,6 @@ export const PUSH_TRANSACTION = 'app/NetworkClient/PUSH_TRANSACTION';
 
 // push transaction to the network
 export const TOGGLE_OFFLINE = 'app/NetworkClient/TOGGLE_OFFLINE';
+
+// push monitoring data
+export const UPDATE_MONITOR = 'app/NetworkClient/UPDATE_MONITOR';

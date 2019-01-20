@@ -12,6 +12,7 @@ import {
   SET_IDENTITY,
   PUSH_TRANSACTION,
   TOGGLE_OFFLINE,
+  UPDATE_MONITOR,
 } from './constants';
 
 export function setSigner(networkSigner) {
@@ -103,5 +104,12 @@ export function pushTransaction(transaction, history) {
 export function toggleOffline() {
   return {
     type: TOGGLE_OFFLINE,
+  };
+}
+
+export function updatedMonitor(monitor) {
+  return {
+    type: UPDATE_MONITOR,
+    monitor,
   };
 }

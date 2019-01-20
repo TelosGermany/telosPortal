@@ -4,8 +4,14 @@ import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
 import { tokensUrl, networksUrl } from 'remoteConfig';
 
-import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
-import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
+import { loadedNetworks, updateNetworks, loadedAccount, setNetwork, updatedMonitor } from '../actions';
+import {
+  makeSelectIdentity,
+  makeSelectReader,
+  makeSelectNetworks,
+  makeSelectActiveNetwork,
+  makeSelectMonitor,
+} from '../selectors';
 
 /*
 *
@@ -163,17 +169,15 @@ export function* fetchTokens(reader) {
 }
 
 export function* fetchClaims() {
-  /*
   try {
-    const data = yield fetch(claimsUrl);
-    const claims = yield data.json();
+    // const data = yield fetch(claimsUrl);
+    const claims = []; // yield data.json();
     return claims;
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return [];
   }
-  */
 }
 
 /*
@@ -321,6 +325,18 @@ export function* fetchAccount() {
       yield put(loadedAccount(account));
     } else {
       yield put(loadedAccount(null));
+    }
+  } catch (err) {
+    console.error('An TelosPortal error occured - see details below:');
+    console.error(err);
+  }
+}
+
+export function* fetchMonitoringData() {
+  const monitor = yield select(makeSelectMonitor());
+  try {
+    if (monitor) {
+      yield put(updatedMonitor(monitor));
     }
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
