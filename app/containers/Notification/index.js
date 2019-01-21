@@ -55,7 +55,7 @@ export class Notification extends React.Component {
           onCancel={() => closeAll()}
           confirmBtnText="Hide"
           confirmBtnCssClass={`${this.props.classes.button} ${this.props.classes.info}`}>
-          <h5>Scatter should appear shortly to confirm this action.</h5>
+          <h5>Scatter respectively Sqrl should appear shortly to confirm this action.</h5>
           <h6>Your transaction will be sent to the network afterwards</h6>
         </SweetAlert>
       );
@@ -138,10 +138,15 @@ export class Notification extends React.Component {
           confirmBtnText="Close"
           // onCancel={() => closeAll()}
           confirmBtnCssClass={`${this.props.classes.button} ${this.props.classes.danger}`}>
-          <h5>You must install and connect Scatter</h5>
+          <h5>You must install and connect to either Scatter or Sqrl</h5>
           <h5>
             <a href={`https://get-scatter.com/`} target="new">
               Get Scatter
+            </a>
+          </h5>
+          <h5>
+            <a href={`https://github.com/Telos-Foundation/Sqrl/releases`} target="new">
+              Get Sqrl
             </a>
           </h5>
         </SweetAlert>
