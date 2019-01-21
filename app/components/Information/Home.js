@@ -11,6 +11,10 @@ const Home = () => {
         <a href="https://get-scatter.com/" target="new">
           Scatter
         </a>{' '}
+        or{' '}
+        <a href="https://github.com/Telos-Foundation/Sqrl" target="new">
+          Sqrl
+        </a>{' '}
         installed to safely and securely send transactions to the Telos or EOS Network.
       </h4>
       <h4>
