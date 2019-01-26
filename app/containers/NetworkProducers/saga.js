@@ -35,7 +35,7 @@ function* getProducers() {
 
     const networkReader = yield select(makeSelectReader());
     const global = yield networkReader.getTableRows(globalTable());
-    const total_vote = global.rows[0].total_producer_vote_weight;
+    const totalVote = global.rows[0].total_producer_vote_weight;
 
     while (data.more) {
       data = yield networkReader.getTableRows(producerTable(key));
@@ -43,10 +43,12 @@ function* getProducers() {
         key = data.rows.pop().owner;
       }
       data.rows.map(row => {
-        producers.push({
-          ...row,
-          vote_percent: (row.total_votes / total_vote) * 100,
-        });
+        if (row.is_active === '1') {
+          producers.push({
+            ...row,
+            vote_percent: (row.total_votes / totalVote) * 100,
+          });
+        }
       });
     }
     yield put(fetchedProducers(producers));
