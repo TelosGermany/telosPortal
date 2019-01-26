@@ -166,8 +166,8 @@ export function* fetchTokens(reader) {
 
 export function* fetchClaims() {
   try {
-    const data = yield fetch(claimsUrl);
-    const claims = yield data.json();
+    const data = []; // yield fetch(claimsUrl);
+    const claims = []; // yield data.json();
     return claims;
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
