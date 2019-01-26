@@ -11,7 +11,15 @@ const Home = () => {
         <a href="https://get-scatter.com/" target="new">
           Scatter
         </a>{' '}
+        or{' '}
+        <a href="https://github.com/Telos-Foundation/Sqrl" target="new">
+          Sqrl
+        </a>{' '}
         installed to safely and securely send transactions to the Telos or EOS Network.
+      </h4>
+      <h4>
+        If you have Scatter or Sqrl open and you still see the message to install one of them, it's most likely your
+        browser rejects the connection. In this case please try using another browser.
       </h4>
       <h4>
         If you would like to ask us questions, participate in the TelosGermany Community, check out our{' '}

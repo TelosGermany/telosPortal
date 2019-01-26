@@ -27,9 +27,9 @@ function ResourcesTable({ ...props }) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.tableRowHover}`}>
-            <TableCell className={classes.tableCell}>EOS</TableCell>
+            <TableCell className={classes.tableCell}>Token</TableCell>
             <TableCell className={classes.tableCell}>
-              {account.core_liquid_balance ? account.core_liquid_balance : '0.0000 EOS'}
+              {account.core_liquid_balance ? account.core_liquid_balance : 'None'}
             </TableCell>
           </TableRow>
           <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>

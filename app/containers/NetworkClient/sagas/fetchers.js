@@ -194,9 +194,8 @@ export function* fetchIdentity(signer, activeNetwork) {
       port: activeNetwork.endpoint.port,
       chainId: activeNetwork.network.chainId,
     };
-
     // suggest the network to the user
-    yield signer.suggestNetwork(networkConfig);
+    if (signer.hasOwnProperty('suggestNetwork')) yield signer.suggestNetwork(networkConfig);
 
     // get identities specific to the activeNetwork
     const id = yield signer.getIdentity({
@@ -208,7 +207,11 @@ export function* fetchIdentity(signer, activeNetwork) {
       ],
     });
 
-    const match = id && id.accounts.find(x => x.blockchain === activeNetwork.network.network);
+    // TODO: Find better solution than hard coded string...
+    const match =
+      id &&
+      (id.accounts.find(x => x.blockchain === activeNetwork.network.network) ||
+        id.accounts.find(x => x.blockchain === 'tlos'));
 
     if (match) {
       return match;
