@@ -2,7 +2,7 @@
 import Ping from 'utils/ping';
 import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
-import { tokensUrl, networksUrl } from 'remoteConfig';
+import { networksUrl, claimsUrl } from 'remoteConfig';
 
 import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
 import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
@@ -136,6 +136,7 @@ function* fetchTokenInfo(reader, account, symbol) {
   }
 }
 
+/*
 export function* fetchTokens(reader) {
   try {
     const data = yield fetch(tokensUrl);
@@ -161,19 +162,18 @@ export function* fetchTokens(reader) {
     return null;
   }
 }
+*/
 
 export function* fetchClaims() {
-  /*
   try {
-    const data = yield fetch(claimsUrl);
-    const claims = yield data.json();
+    const data = []; // yield fetch(claimsUrl);
+    const claims = []; // yield data.json();
     return claims;
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
     console.error(err);
     return [];
   }
-  */
 }
 
 /*
