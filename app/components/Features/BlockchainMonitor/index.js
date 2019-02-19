@@ -5,39 +5,28 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { makeSelectClaims } from 'containers/NetworkClient/selectors';
 
 import DesktopMac from '@material-ui/icons/DesktopMac';
+
 import Tool from 'components/Tool/Tool';
 import ToolSection from 'components/Tool/ToolSection';
 import ToolBody from 'components/Tool/ToolBody';
 
-import Disclaimer from 'components/Information/Disclaimer';
+import ChainMonitor from './ChainMonitor';
+import ChainMonitorTable from './ChainMonitorTableStyle';
+import ProducerMonitorTable from './ProducerMonitorTable';
 
-import AirgrabTable from './AirgrabTable';
-
-const AirgrabForm = props => {
-  const { networkAccount } = props;
-
+const MonitorFeature = () => {
   return (
     <Tool>
-      <ToolSection lg={8}>
-        <ToolBody color="warning" icon={DesktopMac} header="Blockchain Monitor">
-          <Disclaimer />
-          <AirgrabTable account={networkAccount} />
+      <ToolSection md={12}>
+        <ChainMonitorTable />
+        <ToolBody color="warning" icon={DesktopMac} header="Block Producers" subheader=" - Latest BP data">
+          <ProducerMonitorTable />
         </ToolBody>
       </ToolSection>
     </Tool>
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  monitor: makeSelectClaims(),
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(AirgrabForm);
+export default MonitorFeature;

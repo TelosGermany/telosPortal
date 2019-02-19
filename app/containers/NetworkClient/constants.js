@@ -32,4 +32,7 @@ export const PUSH_TRANSACTION = 'app/NetworkClient/PUSH_TRANSACTION';
 export const TOGGLE_OFFLINE = 'app/NetworkClient/TOGGLE_OFFLINE';
 
 // push monitoring data
-export const UPDATE_MONITOR = 'app/NetworkClient/UPDATE_MONITOR';
+export const UPDATE_INTERVAL = 2000;
+export const UPDATE_PRODUCER_MONITOR = 'app/NetworkClient/UPDATE_PRODUCER_MONITOR';
+export const UPDATE_CHAIN_MONITOR = 'app/NetworkClient/UPDATE_CHAIN_MONITOR';
+export const TRIGGER_UPDATE_MONITOR = 'app/NetworkClient/TRIGGER_UPDATE_MONITOR';

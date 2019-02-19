@@ -1,4 +1,4 @@
-import { takeLatest, all } from 'redux-saga/effects';
+import { takeLatest, all, takeEvery, call, put } from 'redux-saga/effects';
 
 import {
   SET_SIGNER,
@@ -11,12 +11,16 @@ import {
   SET_NETWORK,
   SET_IDENTITY,
   PUSH_TRANSACTION,
+  TRIGGER_UPDATE_MONITOR,
+  UPDATE_INTERVAL,
 } from '../constants';
 
 import { buildDispatcher, writerDispatcher, accountDispatcher } from './dispatcher';
-import { fetchNetworks, fetchAccount } from './fetchers';
+import { fetchNetworks, fetchAccount, fetchProducerMonitoringData, fetchChainMonitoringData } from './fetchers';
 import { destroyIdentity } from './destroyers';
 import { pushTransaction } from './transaction';
+
+import {triggerUpdatedMonitor} from '../actions';
 
 // client (re)build can be triggered by signer set, networks loaded, or user request
 function* watchForClientBuild() {
@@ -52,6 +56,24 @@ function* watchTransaction() {
   yield takeLatest(PUSH_TRANSACTION, pushTransaction);
 }
 
+const wait = ms =>
+  new Promise(resolve => {
+    setTimeout(() => resolve(), ms);
+  });
+
+function* chainUpdateTimer() {
+  yield put(triggerUpdatedMonitor());
+  while (true) {
+    yield call(wait, UPDATE_INTERVAL);
+    yield put(triggerUpdatedMonitor());
+  }
+}
+
+function* watchUpdateMonitor() {
+  yield takeEvery(TRIGGER_UPDATE_MONITOR, fetchProducerMonitoringData);
+  yield takeEvery(TRIGGER_UPDATE_MONITOR, fetchChainMonitoringData);
+}
+
 export default function* rootSaga() {
   yield all([
     watchForClientBuild(),
@@ -61,5 +83,7 @@ export default function* rootSaga() {
     watchLoadAccount(),
     watchLogout(),
     watchTransaction(),
+    chainUpdateTimer(),
+    watchUpdateMonitor(),
   ]);
 }

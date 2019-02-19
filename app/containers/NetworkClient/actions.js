@@ -12,7 +12,9 @@ import {
   SET_IDENTITY,
   PUSH_TRANSACTION,
   TOGGLE_OFFLINE,
-  UPDATE_MONITOR,
+  TRIGGER_UPDATE_MONITOR,
+  UPDATE_PRODUCER_MONITOR,
+  UPDATE_CHAIN_MONITOR,
 } from './constants';
 
 export function setSigner(networkSigner) {
@@ -107,9 +109,22 @@ export function toggleOffline() {
   };
 }
 
-export function updatedMonitor(monitor) {
+export function updatedProducerMonitor(data) {
   return {
-    type: UPDATE_MONITOR,
-    monitor,
+    type: UPDATE_PRODUCER_MONITOR,
+    producerMonitor: data,
+  };
+}
+
+export function updatedChainMonitor(data) {
+  return {
+    type: UPDATE_CHAIN_MONITOR,
+    chainMonitor: data,
+  };
+}
+
+export function triggerUpdatedMonitor() {
+  return {
+    type: TRIGGER_UPDATE_MONITOR,
   };
 }

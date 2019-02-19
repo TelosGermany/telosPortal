@@ -4,14 +4,15 @@ import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
 import { tokensUrl, networksUrl } from 'remoteConfig';
 
-import { loadedNetworks, updateNetworks, loadedAccount, setNetwork, updatedMonitor } from '../actions';
 import {
-  makeSelectIdentity,
-  makeSelectReader,
-  makeSelectNetworks,
-  makeSelectActiveNetwork,
-  makeSelectMonitor,
-} from '../selectors';
+  loadedNetworks,
+  updateNetworks,
+  loadedAccount,
+  setNetwork,
+  updatedProducerMonitor,
+  updatedChainMonitor,
+} from '../actions';
+import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
 
 /*
 *
@@ -332,11 +333,39 @@ export function* fetchAccount() {
   }
 }
 
-export function* fetchMonitoringData() {
-  const monitor = yield select(makeSelectMonitor());
+export function* fetchProducerMonitoringData() {
   try {
-    if (monitor) {
-      yield put(updatedMonitor(monitor));
+    const body = { json: true };
+    const data = yield fetch('https://apinode.telosgermany.io:443/v1/chain/get_producers', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
+    const list = yield data.json();
+    if (list) {
+      yield put(updatedProducerMonitor(list));
+    }
+  } catch (err) {
+    console.error('An TelosPortal error occured - see details below:');
+    console.error(err);
+  }
+}
+
+export function* fetchChainMonitoringData() {
+  try {
+    const body = { json: true };
+    const data = yield fetch('https://apinode.telosgermany.io:443/v1/chain/get_info', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    });
+    const info = yield data.json();
+    if (info) {
+      yield put(updatedChainMonitor(info));
     }
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');

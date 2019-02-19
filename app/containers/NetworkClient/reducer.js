@@ -12,7 +12,8 @@ import {
   SET_IDENTITY,
   PUSH_TRANSACTION,
   TOGGLE_OFFLINE,
-  UPDATE_MONITOR,
+  UPDATE_PRODUCER_MONITOR,
+  UPDATE_CHAIN_MONITOR,
 } from './constants';
 
 const initialState = fromJS({
@@ -28,7 +29,8 @@ const initialState = fromJS({
   networks: [],
   tokens: [],
   claims: [],
-  monitor: null,
+  producerMonitor: [],
+  chainMonitor: null,
   transaction: null,
   offlineMode: false,
   override: true,
@@ -87,8 +89,10 @@ function clientReducer(state = initialState, action) {
       return state.set('transaction', action.transaction);
     case TOGGLE_OFFLINE:
       return state.set('offlineMode', !state.get('offlineMode'));
-    case UPDATE_MONITOR:
-      return state.set('monitor', action.monitor);
+    case UPDATE_PRODUCER_MONITOR:
+      return state.set('producerMonitor', action.producerMonitor);
+    case UPDATE_CHAIN_MONITOR:
+      return state.set('chainMonitor', action.chainMonitor);
     default:
       return state;
   }
