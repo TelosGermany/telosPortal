@@ -278,17 +278,6 @@ function* getAccountDetail(reader, name) {
     const symbol = 'TLOS';
     const data = yield reader.getCurrencyBalance(code, account.account_name, symbol);
 
-    /*
-    const data = yield fetch('https://apinode.telosgermany.io/v1/chain/get_currency_balance', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(body),
-    });
-
-    const list = yield data.json();
-    */
     return {
       ...account,
       balances: data,
@@ -317,20 +306,13 @@ export function* fetchAccount() {
 
 export function* fetchProducerMonitoringData() {
   try {
-    const body = { json: true, limit: 500 };
     const reader = yield select(makeSelectReader());
-    const test = yield reader.getInfo();
-    console.log(test);
-    const data = yield fetch('https://apinode.telosgermany.io:443/v1/chain/get_producers', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    });
-    const list = yield data.json();
-    if (list) {
-      yield put(updatedProducerMonitor(list));
+    const jsonFlag = true;
+    const limit = 1000;
+    const data = yield reader.getProducers(jsonFlag, '', limit);
+
+    if (data) {
+      yield put(updatedProducerMonitor(data));
     }
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
@@ -340,17 +322,11 @@ export function* fetchProducerMonitoringData() {
 
 export function* fetchChainMonitoringData() {
   try {
-    const body = { json: true };
-    const data = yield fetch('https://apinode.telosgermany.io:443/v1/chain/get_info', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    });
-    const info = yield data.json();
-    if (info) {
-      yield put(updatedChainMonitor(info));
+    const reader = yield select(makeSelectReader());
+    const data = yield reader.getInfo({});
+
+    if (data) {
+      yield put(updatedChainMonitor(data));
     }
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
