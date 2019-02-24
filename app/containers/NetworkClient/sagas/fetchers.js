@@ -2,7 +2,7 @@
 import Ping from 'utils/ping';
 import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
-import { tokensUrl, networksUrl } from 'remoteConfig';
+import { networksUrl, claimsUrl } from 'remoteConfig';
 
 import {
   loadedNetworks,
@@ -143,6 +143,7 @@ function* fetchTokenInfo(reader, account, symbol) {
   }
 }
 
+/*
 export function* fetchTokens(reader) {
   try {
     const data = yield fetch(tokensUrl);
@@ -168,6 +169,7 @@ export function* fetchTokens(reader) {
     return null;
   }
 }
+*/
 
 export function* fetchClaims() {
   try {
