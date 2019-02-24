@@ -199,9 +199,8 @@ export function* fetchIdentity(signer, activeNetwork) {
       port: activeNetwork.endpoint.port,
       chainId: activeNetwork.network.chainId,
     };
-
     // suggest the network to the user
-    yield signer.suggestNetwork(networkConfig);
+    if (signer.hasOwnProperty('suggestNetwork')) yield signer.suggestNetwork(networkConfig);
 
     // get identities specific to the activeNetwork
     const id = yield signer.getIdentity({
@@ -213,7 +212,11 @@ export function* fetchIdentity(signer, activeNetwork) {
       ],
     });
 
-    const match = id && id.accounts.find(x => x.blockchain === activeNetwork.network.network);
+    // TODO: Find better solution than hard coded string...
+    const match =
+      id &&
+      (id.accounts.find(x => x.blockchain === activeNetwork.network.network) ||
+        id.accounts.find(x => x.blockchain === 'tlos'));
 
     if (match) {
       return match;
@@ -270,32 +273,12 @@ function* getAccountDetail(reader, name) {
   try {
     const account = yield reader.getAccount(name);
 
-    const body = { code: 'eosio.token', account: account.account_name, symbol: 'TLOS' };
+    // const body = { code: 'eosio.token', account: account.account_name, symbol: 'TLOS' };
+    const code = 'eosio.token';
+    const symbol = 'TLOS';
+    const data = yield reader.getCurrencyBalance(code, account.account_name, symbol);
+
     /*
-    try {
-      const flare = yield fetch('https://api-pub.eosflare.io/v1/eosflare/get_account', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(body),
-      });
-
-      const flareData = yield flare.json();
-
-      if (flareData.account) {
-        const tokens = flareData.account.tokens.map(token => {
-          return `${token.contract}:${token.symbol}`;
-        });
-        tokens.unshift('eosio.token:TLOS');
-        body = {
-          ...body,
-          tokens,
-        };
-      }
-    } catch (err) {}
-    */
-
     const data = yield fetch('https://apinode.telosgermany.io/v1/chain/get_currency_balance', {
       method: 'POST',
       headers: {
@@ -303,13 +286,12 @@ function* getAccountDetail(reader, name) {
       },
       body: JSON.stringify(body),
     });
-    const list = yield data.json();
-    // console.log(list);
 
-    // yield spawn(fetchLatency);
+    const list = yield data.json();
+    */
     return {
       ...account,
-      balances: list,
+      balances: data,
     };
   } catch (c) {
     console.log(c);

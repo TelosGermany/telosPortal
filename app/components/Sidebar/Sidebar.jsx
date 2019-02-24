@@ -25,8 +25,6 @@ import NetworkStatus from 'components/NetworkStatus/Status';
 import VoteUs from 'components/Features/VoteUs';
 import TelosGermany from 'components/Icons/TelosGermany';
 
-import avatar from 'assets/img/scatter.png';
-
 import SidebarWrapper from './SidebarWrapper';
 import sidebarStyle from './sidebarStyle';
 
@@ -34,7 +32,6 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openAvatar: false,
       openDapps: this.activeRoute('/dapps'),
       openAccount: this.activeRoute('/account'),
       openVote: this.activeRoute('/vote'),
@@ -78,15 +75,9 @@ class Sidebar extends React.Component {
     })}`;
     const user = (
       <div className={userWrapperClass}>
-        <div className={photo}>
-          <img src={avatar} className={classes.avatarImg} alt="..." />
-        </div>
         <List className={classes.list}>
           <ListItem className={`${classes.item} ${classes.userItem}`}>
-            <NavLink
-              to={'#'}
-              className={`${classes.itemLink} ${classes.userCollapseEOSutton}`}
-              onClick={() => this.openCollapse('openAvatar')}>
+            <NavLink to={'#'} className={`${classes.itemLink} ${classes.userCollapseEOSutton}`}>
               <ListItemText
                 primary={<NetworkIdentity />}
                 disableTypography
