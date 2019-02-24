@@ -22,8 +22,9 @@ export function* buildReader(activeNetwork) {
     };
 
     const networkReader = yield Eos(networkOptions);
+    // TODO: Remove when not longer needed
     const tokens = []; // yield call(fetchTokens, networkReader);
-    const claims = yield call(fetchClaims);
+    const claims = []; // yield call(fetchClaims);
 
     yield put(enableReader(networkReader, tokens, claims));
   } catch (err) {

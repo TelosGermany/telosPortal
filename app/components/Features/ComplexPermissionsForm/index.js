@@ -118,7 +118,7 @@ const ComplexPermissionsForm = props => {
   return (
     <Tool>
       <ToolSection lg={12}>
-        <ToolBody color="danger" header="Important" subheader=" - Advanced EOS Users only">
+        <ToolBody color="danger" header="Important" subheader=" - Advanced Telos Users only">
           <ComplexPermissions />
         </ToolBody>
       </ToolSection>

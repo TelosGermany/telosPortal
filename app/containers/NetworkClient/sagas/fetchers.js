@@ -4,7 +4,14 @@ import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
 import { networksUrl, claimsUrl } from 'remoteConfig';
 
-import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
+import {
+  loadedNetworks,
+  updateNetworks,
+  loadedAccount,
+  setNetwork,
+  updatedProducerMonitor,
+  updatedChainMonitor,
+} from '../actions';
 import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
 
 /*
@@ -166,7 +173,7 @@ export function* fetchTokens(reader) {
 
 export function* fetchClaims() {
   try {
-    const data = []; // yield fetch(claimsUrl);
+    // const data = yield fetch(claimsUrl);
     const claims = []; // yield data.json();
     return claims;
   } catch (err) {
@@ -268,46 +275,14 @@ function* getAccountDetail(reader, name) {
   try {
     const account = yield reader.getAccount(name);
 
-    const body = { code: 'eosio.token', account: account.account_name, symbol: 'TLOS' };
-    /*
-    try {
-      const flare = yield fetch('https://api-pub.eosflare.io/v1/eosflare/get_account', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(body),
-      });
+    // const body = { code: 'eosio.token', account: account.account_name, symbol: 'TLOS' };
+    const code = 'eosio.token';
+    const symbol = 'TLOS';
+    const data = yield reader.getCurrencyBalance(code, account.account_name, symbol);
 
-      const flareData = yield flare.json();
-
-      if (flareData.account) {
-        const tokens = flareData.account.tokens.map(token => {
-          return `${token.contract}:${token.symbol}`;
-        });
-        tokens.unshift('eosio.token:TLOS');
-        body = {
-          ...body,
-          tokens,
-        };
-      }
-    } catch (err) {}
-    */
-
-    const data = yield fetch('https://apinode.telosgermany.io/v1/chain/get_currency_balance', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(body),
-    });
-    const list = yield data.json();
-    // console.log(list);
-
-    // yield spawn(fetchLatency);
     return {
       ...account,
-      balances: list,
+      balances: data,
     };
   } catch (c) {
     console.log(c);
@@ -324,6 +299,36 @@ export function* fetchAccount() {
       yield put(loadedAccount(account));
     } else {
       yield put(loadedAccount(null));
+    }
+  } catch (err) {
+    console.error('An TelosPortal error occured - see details below:');
+    console.error(err);
+  }
+}
+
+export function* fetchProducerMonitoringData() {
+  try {
+    const reader = yield select(makeSelectReader());
+    const jsonFlag = true;
+    const limit = 1000;
+    const data = yield reader.getProducers(jsonFlag, '', limit);
+
+    if (data) {
+      yield put(updatedProducerMonitor(data));
+    }
+  } catch (err) {
+    console.error('An TelosPortal error occured - see details below:');
+    console.error(err);
+  }
+}
+
+export function* fetchChainMonitoringData() {
+  try {
+    const reader = yield select(makeSelectReader());
+    const data = yield reader.getInfo({});
+
+    if (data) {
+      yield put(updatedChainMonitor(data));
     }
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');

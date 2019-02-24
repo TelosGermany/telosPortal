@@ -18,6 +18,9 @@ const makeSelectClaims = () => createSelector(selectClientState, substate => sub
 const makeSelectTransaction = () => createSelector(selectClientState, substate => substate.get('transaction'));
 const makeSelectOffline = () => createSelector(selectClientState, substate => substate.get('offlineMode'));
 const makeSelectSwitchTime = () => createSelector(selectClientState, substate => substate.get('networkSwitchTime'));
+
+const makeSelectProducerMonitor = () => createSelector(selectClientState, substate => substate.get('producerMonitor'));
+const makeSelectChainMonitor = () => createSelector(selectClientState, substate => substate.get('chainMonitor'));
 /**
  * loading selectors
  */
@@ -79,4 +82,6 @@ export {
   makeSelectAccountEnabled,
   makeSelectTransaction,
   makeSelectOffline,
+  makeSelectProducerMonitor,
+  makeSelectChainMonitor,
 };

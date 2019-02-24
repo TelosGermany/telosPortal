@@ -31,7 +31,7 @@ const switchData = {
   id: 'transfer',
   label: 'Transfer',
   placeholder:
-    'Tranfer Off: owner retains staking control and voting rights. Transfer On: New account gains staking control and voting rights.',
+    'Transfer Off: owner retains staking control and voting rights. Transfer On: New account gains staking control and voting rights.',
   md: 12,
 };
 

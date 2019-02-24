@@ -72,6 +72,21 @@ const tableStyle = theme => ({
       minWidth: '32px',
     },
   },
+  tableCellCenter: {
+    ...defaultFont,
+    lineHeight: '1.42857143',
+    padding: '12px 8px!important',
+    verticalAlign: 'middle',
+    fontSize: '1em',
+    borderBottom: 'none',
+    borderTop: '1px solid #ddd',
+    position: 'relative',
+    textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      minHeight: '24px',
+      minWidth: '32px',
+    },
+  },
   tableCellTotal: {
     fontWeight: '500',
     fontSize: '1.25em',
