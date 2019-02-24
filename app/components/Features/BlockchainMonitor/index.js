@@ -20,8 +20,12 @@ const MonitorFeature = () => {
   return (
     <Tool>
       <ToolSection md={12}>
-        <ChainMonitorTable />
-        <ToolBody color="warning" icon={DesktopMac} header="Block Producers" subheader=" - Latest BP data">
+        <ToolBody
+          color="warning"
+          icon={DesktopMac}
+          header="Blockchain monitor"
+          subheader=" - Latest data from the chain">
+          <ChainMonitorTable />
           <ProducerMonitorTable />
         </ToolBody>
       </ToolSection>

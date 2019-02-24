@@ -335,7 +335,10 @@ export function* fetchAccount() {
 
 export function* fetchProducerMonitoringData() {
   try {
-    const body = { json: true };
+    const body = { json: true, limit: 500 };
+    const reader = yield select(makeSelectReader());
+    const test = yield reader.getInfo();
+    console.log(test);
     const data = yield fetch('https://apinode.telosgermany.io:443/v1/chain/get_producers', {
       method: 'POST',
       body: JSON.stringify(body),

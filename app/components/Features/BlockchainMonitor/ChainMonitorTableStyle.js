@@ -28,9 +28,9 @@ const ChainMonitorTable = props => {
       <Table className={classes.table}>
         <TableHead className={classes.successRow}>
           <TableRow className={classes.tableRow}>
-            <TableCell className={`${classes.tableHeadCell} ${classes.tableHeadFontSize}`}>Current Block</TableCell>
-            <TableCell className={`${classes.tableHeadCell} ${classes.tableHeadFontSize}`}>Current Producer</TableCell>
-            <TableCell className={`${classes.tableHeadCell} ${classes.tableHeadFontSize}`}>
+            <TableCell className={`${classes.tableCellCenter} ${classes.tableHeadFontSize}`}>Current Block</TableCell>
+            <TableCell className={`${classes.tableCellCenter} ${classes.tableHeadFontSize}`}>Current Producer</TableCell>
+            <TableCell className={`${classes.tableCellCenter} ${classes.tableHeadFontSize}`}>
               Last irreversible block number
             </TableCell>
           </TableRow>
@@ -38,9 +38,9 @@ const ChainMonitorTable = props => {
         <TableBody>
           {chainMonitor !== null ? (
             <TableRow className={classes.tableRowHover} key={chainMonitor.head_block_num}>
-              <TableCell className={classes.tableCell}>{chainMonitor.head_block_num}</TableCell>
-              <TableCell className={classes.tableCell}>{chainMonitor.head_block_producer}</TableCell>
-              <TableCell className={classes.tableCell}>{chainMonitor.last_irreversible_block_num}</TableCell>
+              <TableCell className={classes.tableCellCenter}>{chainMonitor.head_block_num}</TableCell>
+              <TableCell className={classes.tableCellCenter}>{chainMonitor.head_block_producer}</TableCell>
+              <TableCell className={classes.tableCellCenter}>{chainMonitor.last_irreversible_block_num}</TableCell>
             </TableRow>
           ) : (
             <TableRow className={classes.tableRowHover}>
