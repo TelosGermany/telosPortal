@@ -27,12 +27,12 @@ const FormData = [
   },
   {
     id: 'cpu',
-    label: 'CPU Stake (in EOS)',
+    label: 'CPU Stake (in TLOS)',
     placeholder: 'Required to process transactions',
   },
   {
     id: 'net',
-    label: 'Net Stake (in EOS)',
+    label: 'Net Stake (in TLOS)',
     placeholder: 'Required to use network',
   },
   {
@@ -46,7 +46,7 @@ const switchData = {
   id: 'transfer',
   label: 'Transfer',
   placeholder:
-    'Tranfer Off: owner retains staking control and voting rights. Transfer On: New account gains staking control and voting rights.',
+    'Transfer Off: owner retains staking control and voting rights. Transfer On: New account gains staking control and voting rights.',
 };
 
 const FormObject = props => {
