@@ -34,6 +34,7 @@ const ProducerMonitorTable = props => {
           Header: 'Position',
           accessor: 'position',
           Cell: row => <span>{row.value}</span>,
+          maxWidth: 150,
         },
         {
           Header: 'Name',
@@ -55,6 +56,14 @@ const ProducerMonitorTable = props => {
           id: 'total_votes',
           accessor: d => Number(d.total_votes).toFixed(0),
           Cell: row => <span>{row.value}</span>,
+        },
+        {
+          Header: 'Produced Blocks',
+          accessor: 'lifetime_produced_blocks',
+        },
+        {
+          Header: 'Missed Blocks',
+          accessor: 'lifetime_missed_blocks',
         },
         {
           filterable: false,
