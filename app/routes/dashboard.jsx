@@ -39,6 +39,7 @@ import {
   AssignmentTurnedIn,
   Payment,
   DeveloperBoard,
+  CloudDownload,
   VpnKey,
   DesktopMac,
 } from '@material-ui/icons';
@@ -67,13 +68,12 @@ const dashRoutes = [
     component: Donate,
   },
   */
-  /*
   {
     path: '/airgrab',
     name: 'Airgrab Tokens',
     icon: CloudDownload,
     component: Airgrab,
-  }, */
+  },
   {
     path: '/monitor',
     name: 'Monitor',
