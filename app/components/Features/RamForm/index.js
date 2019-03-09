@@ -22,7 +22,12 @@ const RamForm = props => {
       </ToolSection>
       <ToolSection lg={4}>
         <ToolBody color="info" header="Information">
-          <p>Tutorial coming soon</p>
+          <p>
+            Buying RAM can be done by entering either the desired amount in byte or the spendable amount of TLOS. The name of the paying and the receiving amount must be put in the fields, too.
+            <br />
+            <br />
+            In order to sell RAM, the selling account name and the amount of RAM in bytes must be entered.
+          </p>
         </ToolBody>
       </ToolSection>
     </Tool>
