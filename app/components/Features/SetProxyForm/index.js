@@ -50,7 +50,7 @@ const SetProxyForm = props => {
       </ToolSection>
       <ToolSection lg={4}>
         <ToolBody color="info" header="Tutorial">
-          <p>Tutorial coming soon</p>
+          <p>Enter the Proxy account name and put your account name under Proxied account name.</p>
         </ToolBody>
       </ToolSection>
     </Tool>

@@ -60,7 +60,8 @@ const TransferForm = props => {
       </ToolSection>
       <ToolSection lg={4}>
         <ToolBody color="info" header="Tutorial">
-          <p>Tutorial coming soon</p>
+          <p>
+            Tokens can be transferred from one account to another. Add the new account name under recipient, type in the amount of TLOS in Quantity and add a transfer description under Memo. Finally, send and confirm the transfer.</p>
         </ToolBody>
       </ToolSection>
     </Tool>
