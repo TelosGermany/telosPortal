@@ -17,6 +17,9 @@ const ChangePermissions = () => {
       <p>
         If you dont have the key pairs you assign to the active permission you will no longer be able send transactions
       </p>
+      <p>
+        For a detailed explanation watch the following <a href="https://youtu.be/b4_PstRDLQ8" target="new">video tutorial</a>.
+      </p>
     </div>
   );
 };

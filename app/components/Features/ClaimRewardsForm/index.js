@@ -42,7 +42,7 @@ const ClaimRewardsForm = props => {
       </ToolSection>
       <ToolSection lg={4}>
         <ToolBody color="info" header="Tutorial">
-          <p>Tutorial coming soon</p>
+          <p>All active and up to 30 standby BPs earn TLOS. By entering your BP name you can easily claim your earned rewards.</p>
         </ToolBody>
       </ToolSection>
     </Tool>

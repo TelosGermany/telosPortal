@@ -15,22 +15,9 @@ const RegProxy = () => {
       </p>
       <h5>Register Proxy Info</h5>
       <p>
-        This is an on-chain EOS contract (or dApp) that allows EOS proxy accounts to register additional information
-        about themselves, such as name and website. This information is published on the EOS blockchain and freely
-        available to be republished. An example website that uses this information is the{' '}
-        <a href="https://www.alohaeos.com/vote/proxy" target="new">
-          Aloha EOS Proxy Research Portal
-        </a>.
-      </p>
-      <p>
-        The contract is published on the{' '}
-        <a href="https://bloks.io/account/regproxyinfo" target="new">
-          regproxyinfo
-        </a>{' '}
-        account on the EOS mainnet. More information about this project can be found on{' '}
-        <a href="https://github.com/AlohaEOS/eos-proxyinfo" target="new">
-          GitHub
-        </a>
+        This is an on-chain Telos contract (or dApp) that allows Telos proxy accounts to register additional information
+        about themselves, such as name and website. This information is published on the Telos blockchain and freely
+        available to be republished.
       </p>
       <p>
         This action will use your Proxy Account RAM allocation. Depending on how much detail you provide, this could be

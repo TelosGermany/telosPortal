@@ -90,9 +90,9 @@ const CreateAccountForm = props => {
       <ToolSection lg={4}>
         <ToolBody color="info" header="Tutorial">
           <p>
-            The creation of a new account can only be done by an existing account. The new account name must be 12 characters long which are all lower case and/or the numbers 1-5. Adding a minimum of 0.1 CPU (in TLOS) 0.1 NET (in TLOS) and 2600 bytes of RAM is required. However a greater amount can be entered and allows the new account some initial actions. Additionally, the active and owner key of the new account must be added into the form. If you don’t have an initial account and want one please contact us under t.me/TelosGermany.
+            The creation of a new account can only be done by an existing account. The new account name must be 12 characters long which are all lower case and/or the numbers 1-5. Adding a minimum of 0.1 CPU (in TLOS) 0.1 NET (in TLOS) and 2600 bytes of RAM is required. However a greater amount can be entered which allows the new account to utilize more resources of the network. Also, more RAM should be assigned if you are planning to participate in AirGrabs. Additionally, the active and owner key of the new account must be added into the form. You can use scatter or Sqrl to generate those keys. If you don’t have an initial account and want one please contact us under t.me/TelosGermany.
             <br /> <br />
-            If “Transfer” is checked, the TLOS which are used in this process will be transferred to the new account (instead of delegated). This means, if you ever return the CPU, NET and RAM back to the network this amount would be received by the new account (instead of the originally creating).
+            If “Transfer” is checked, the TLOS which are used in this process will be transferred to the new account (instead of delegated), so the new account will own those tokens.
           </p>
         </ToolBody>
       </ToolSection>

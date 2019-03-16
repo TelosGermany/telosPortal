@@ -74,7 +74,7 @@ function ResourcesTable({ ...props }) {
           <TableBody>
             <TableRow className={`${classes.tableRowHover}`}>
               <TableCell className={classes.tableCell}>
-                <h6>Load an account to view your resource utilitization and balances.</h6>
+                <h6>Load an account to view your resource utilitization and balances. For a detailed explanation watch the following <a href="https://youtu.be/qwhmACPo5jM" target="new">video tutorial</a>.</h6>
               </TableCell>
             </TableRow>
             <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
