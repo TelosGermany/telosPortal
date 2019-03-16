@@ -31,7 +31,7 @@ const ProducerMonitorTable = props => {
       noDataText={<CircularProgress color="secondary" />}
       columns={[
         {
-          Header: 'Position',
+          Header: 'Pos',
           accessor: 'position',
           Cell: row => <span>{row.value}</span>,
           maxWidth: 150,
@@ -66,6 +66,10 @@ const ProducerMonitorTable = props => {
           accessor: 'lifetime_missed_blocks',
         },
         {
+          Header: 'MB/(PB+MB) in %',
+          Cell: row => <span>{((row.original.lifetime_missed_blocks/(row.original.lifetime_missed_blocks+row.original.lifetime_produced_blocks)*100) ||0).toFixed(2)}</span>,
+        },
+        {
           filterable: false,
           sortable: false,
           maxWidth: 0,
@@ -77,9 +81,9 @@ const ProducerMonitorTable = props => {
           desc: false,
         },
       ]}
-      defaultPageSize={50}
-      // pageSize={data.length}
-      showPaginationTop //= {false}
+      // defaultPageSize={50}
+      pageSize={data.length}
+      showPaginationTop={false}
       showPaginationBottom={false}
       className="-striped -highlight"
     />
