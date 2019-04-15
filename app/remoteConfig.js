@@ -4,16 +4,7 @@
 
 // TODO: Remove unused airgrabs and add new airgrabs
 
-const airgrabs = [
-  {
-    symbol: 'VIITA',
-    account: 'viitasphere1',
-    method: 'open',
-    description:
-      'Viitasphere is the economy of the future, where everyday people, rather than a central power, control the economy. With Viitasphere every individual will have the ability to connect with one another on a peer-to-peer platform in order to request and provide services and goods for a cost determined by both parties, paid in any manner they see fit.',
-    url: 'http://www.viitasphere.com/',
-  },
-];
+const airgrabs = [];
 
 const claimsUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-claims/master/claims.json-DISABLED';
 const networksUrl = 'https://raw.githubusercontent.com/TelosGermany/network_list/master/networks.json';
