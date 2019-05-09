@@ -8,7 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import routes from 'routes/dashboard';
-import { makeSelectAccount, makeSelectIdentity } from 'containers/NetworkClient/selectors';
+import { makeSelectAccount, makeSelectIdentity, makeSelectActiveNetwork } from 'containers/NetworkClient/selectors';
 import { pushTransaction } from 'containers/NetworkClient/actions';
 import { stageTransaction } from 'containers/OfflineClient/actions';
 
@@ -42,6 +42,7 @@ const Connector = props => {
 const mapStateToProps = createStructuredSelector({
   networkAccount: makeSelectAccount(),
   networkIdentity: makeSelectIdentity(),
+  activeNetwork: makeSelectActiveNetwork(),
 });
 
 function mapDispatchToProps(dispatch) {

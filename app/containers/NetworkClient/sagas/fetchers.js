@@ -1,8 +1,6 @@
-// import Ping from 'ping.js';
-import Ping from 'utils/ping';
-import { orderBy } from 'lodash';
-import { put, all, join, fork, select, call } from 'redux-saga/effects';
-import { networksUrl, claimsUrl } from 'remoteConfig';
+import {orderBy} from 'lodash';
+import {put, all, join, fork, select, call} from 'redux-saga/effects';
+import {networksUrl, claimsUrl} from 'remoteConfig';
 
 import {
   loadedNetworks,
@@ -12,7 +10,7 @@ import {
   updatedProducerMonitor,
   updatedChainMonitor,
 } from '../actions';
-import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
+import {makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork} from '../selectors';
 
 /*
 *
@@ -30,7 +28,7 @@ export function* fetchNetworks() {
     const rawNetworks = yield data.json();
 
     const networks = rawNetworks.map(network => {
-      const { endpoints, ...networkDetails } = network;
+      const {endpoints, ...networkDetails} = network;
       const endpointDetails = endpoints.map(endpoint => {
         return {
           ...endpoint,
@@ -61,61 +59,6 @@ export function* fetchNetworks() {
   }
 }
 
-function* makeEndpointsLatency(endpoint) {
-  const { ping, ...endpointDetails } = endpoint;
-
-  try {
-    return {
-      ...endpointDetails,
-      ping: yield call(Ping, `${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`),
-    };
-  } catch (c) {
-    return {
-      ...endpointDetails,
-      ping: 5000,
-    };
-  }
-}
-
-export function* fetchLatency() {
-  try {
-    // fetch the remote network list
-    const networks = yield select(makeSelectNetworks());
-    const active = yield select(makeSelectActiveNetwork());
-
-    const activeIndex = networks.findIndex(network => {
-      return network.chainId === active.network.chainId;
-    });
-
-    let endpoints = networks[activeIndex].endpoints;
-
-    const latencies = yield all(
-      endpoints.map(endpoint => {
-        return fork(makeEndpointsLatency, endpoint);
-      })
-    );
-
-    endpoints = yield join(...latencies);
-    networks[activeIndex].endpoints = endpoints;
-    yield put(updateNetworks(networks));
-
-    const sorted = orderBy(endpoints, ['failures', 'ping'], 'asc');
-    const best = sorted[0];
-
-    if (active.endpoint.name !== best.name) {
-      const activeNetwork = {
-        network: networks[activeIndex],
-        endpoint: best,
-      };
-
-      yield put(setNetwork(activeNetwork, false));
-    }
-  } catch (err) {
-    console.error('An TelosPortal error occured - see details below:');
-    console.error(err);
-  }
-}
-
 /*
 *
 * TOKENS
@@ -125,7 +68,7 @@ export function* fetchLatency() {
 
 function* fetchTokenInfo(reader, account, symbol) {
   try {
-    if (symbol === 'OCT') throw { message: 'OCT has no STATS table - please fix!' };
+    if (symbol === 'OCT') throw {message: 'OCT has no STATS table - please fix!'};
     const stats = yield reader.getCurrencyStats(account, symbol);
     const split = stats[symbol].max_supply.split(' ')[0].split('.');
     const precision = split.length > 1 ? split[1].length : 0;
@@ -271,13 +214,11 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
-function* getAccountDetail(reader, name) {
+function* getAccountDetail(reader, name, activeNetwork) {
   try {
     const account = yield reader.getAccount(name);
-
-    // const body = { code: 'eosio.token', account: account.account_name, symbol: 'TLOS' };
     const code = 'eosio.token';
-    const symbol = 'TLOS';
+    const symbol = activeNetwork.network.prefix;
     const data = yield reader.getCurrencyBalance(code, account.account_name, symbol);
 
     return {
@@ -293,9 +234,10 @@ function* getAccountDetail(reader, name) {
 export function* fetchAccount() {
   const reader = yield select(makeSelectReader());
   const identity = yield select(makeSelectIdentity());
+  const activeNetwork = yield select(makeSelectActiveNetwork());
   try {
     if (identity && identity.name) {
-      const account = yield call(getAccountDetail, reader, identity.name);
+      const account = yield call(getAccountDetail, reader, identity.name, activeNetwork);
       yield put(loadedAccount(account));
     } else {
       yield put(loadedAccount(null));

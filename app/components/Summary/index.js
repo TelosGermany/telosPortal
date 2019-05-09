@@ -48,7 +48,7 @@ function Summary(props) {
               </h5>
             </CardHeader>
             <CardBody>
-              <ResourceTable account={account} />
+              <ResourceTable account={account} network={network} />
             </CardBody>
           </Card>
         </GridItem>

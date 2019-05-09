@@ -24,10 +24,10 @@ const makeTransaction = values => {
         receiver: values.name,
         stake_net_quantity: `${Number(values.net)
           .toFixed(4)
-          .toString()} TLOS`,
+          .toString()} ${values.activeNetwork.network.prefix}`,
         stake_cpu_quantity: `${Number(values.cpu)
           .toFixed(4)
-          .toString()} TLOS`,
+          .toString()} ${values.activeNetwork.network.prefix}`,
         transfer: values.transfer ? 1 : 0,
       },
     },
@@ -67,6 +67,7 @@ const enhance = compose(
       name: '',
       net: '0',
       cpu: '0',
+      activeNetwork: props.activeNetwork ? props.activeNetwork : '',
     }),
     validationSchema,
   })

@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import tableStyle from 'assets/jss/tableStyle';
 
 function ResourcesTable({ ...props }) {
-  const { classes, account } = props;
+  const { classes, account, network } = props;
 
   return (
     <div className={classes.tableResponsive}>
@@ -19,7 +19,7 @@ function ResourcesTable({ ...props }) {
           <TableBody>
             <TableRow className={`${classes.tableRowHover}`}>
               <TableCell className={classes.tableCell}>
-                <h6>TLOS</h6>
+                <h6>{network.network.prefix}</h6>
               </TableCell>
               <TableCell className={classes.tableCell}>
                 {account.balances !== undefined && account.balances.length >= 1
@@ -74,7 +74,13 @@ function ResourcesTable({ ...props }) {
           <TableBody>
             <TableRow className={`${classes.tableRowHover}`}>
               <TableCell className={classes.tableCell}>
-                <h6>Load an account to view your resource utilitization and balances. For a detailed explanation watch the following <a href="https://youtu.be/qwhmACPo5jM" target="new">video tutorial</a>.</h6>
+                <h6>
+                  Load an account to view your resource utilitization and balances. For a detailed explanation watch the
+                  following{' '}
+                  <a href="https://youtu.be/qwhmACPo5jM" target="new">
+                    video tutorial
+                  </a>.
+                </h6>
               </TableCell>
             </TableRow>
             <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
