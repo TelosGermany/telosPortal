@@ -19,7 +19,7 @@ const makeTransaction = (values, isEOS) => {
     ? {
       quant: `${Number(values.eosQuantity)
           .toFixed(4)
-          .toString()} TLOS`,
+          .toString()} ${values.activeNetwork.network.prefix}`,
     }
     : { bytes: Number(values.byteQuantity) };
 
