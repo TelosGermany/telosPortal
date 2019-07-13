@@ -1,16 +1,9 @@
-import {orderBy} from 'lodash';
-import {put, all, join, fork, select, call} from 'redux-saga/effects';
-import {networksUrl, claimsUrl} from 'remoteConfig';
+import { orderBy } from 'lodash';
+import { put, all, join, fork, select, call } from 'redux-saga/effects';
+import { networksUrl, tokensUrl } from 'remoteConfig';
 
-import {
-  loadedNetworks,
-  updateNetworks,
-  loadedAccount,
-  setNetwork,
-  updatedProducerMonitor,
-  updatedChainMonitor,
-} from '../actions';
-import {makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork} from '../selectors';
+import { loadedNetworks, updateNetworks, loadedAccount, updatedProducerMonitor, updatedChainMonitor } from '../actions';
+import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
 
 /*
 *
@@ -28,7 +21,7 @@ export function* fetchNetworks() {
     const rawNetworks = yield data.json();
 
     const networks = rawNetworks.map(network => {
-      const {endpoints, ...networkDetails} = network;
+      const { endpoints, ...networkDetails } = network;
       const endpointDetails = endpoints.map(endpoint => {
         return {
           ...endpoint,
@@ -68,7 +61,7 @@ export function* fetchNetworks() {
 
 function* fetchTokenInfo(reader, account, symbol) {
   try {
-    if (symbol === 'OCT') throw {message: 'OCT has no STATS table - please fix!'};
+    if (symbol === 'OCT') throw { message: 'OCT has no STATS table - please fix!' };
     const stats = yield reader.getCurrencyStats(account, symbol);
     const split = stats[symbol].max_supply.split(' ')[0].split('.');
     const precision = split.length > 1 ? split[1].length : 0;
@@ -85,8 +78,8 @@ function* fetchTokenInfo(reader, account, symbol) {
     };
   }
 }
+// TODO: Create customTokenList in git (see eostoolkit) -> replace logic in getAccountDetail with fetchTokens and following logic
 
-/*
 export function* fetchTokens(reader) {
   try {
     const data = yield fetch(tokensUrl);
@@ -112,7 +105,46 @@ export function* fetchTokens(reader) {
     return null;
   }
 }
-*/
+
+function* fetchTokenFromGreymass(account) {
+  let body = { account: account.account_name };
+
+  try {
+    const flare = yield fetch('https://api-pub.eosflare.io/v1/eosflare/get_account', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(body),
+    });
+    const flareData = yield flare.json();
+
+    if (flareData.account) {
+      const tokens = flareData.account.tokens.map(token => {
+        return `${token.contract}:${token.symbol}`;
+      });
+      tokens.unshift('eosio.token:EOS');
+      body = {
+        ...body,
+        tokens,
+      };
+    }
+  } catch (err) {
+    console.error('An TelosPortal error occured - see details below:');
+    console.log(err);
+  }
+
+  const data = yield fetch('https://eos.greymass.com/v1/chain/get_currency_balances', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify(body),
+  });
+  const list = yield data.json();
+
+  return list;
+}
 
 export function* fetchClaims() {
   try {
@@ -210,20 +242,31 @@ function* getCurrency(reader, token, name) {
   }
 }
 
-function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
-
 function* getAccountDetail(reader, name, activeNetwork) {
   try {
     const account = yield reader.getAccount(name);
-    const code = 'eosio.token';
-    const symbol = activeNetwork.network.prefix;
-    const data = yield reader.getCurrencyBalance(code, account.account_name, symbol);
+
+    let customTokens = [];
+    let customTokensData = [];
+
+    if (activeNetwork.network.prefix === 'EOS') {
+      customTokens = yield fetchTokenFromGreymass(account);
+      customTokensData = customTokens.map(token => `${token.amount} ${token.symbol}`);
+    } else {
+      customTokens = yield fetchTokens(reader);
+      const extendedDataPromise = yield all(
+        customTokens.map(customToken => {
+          return fork(getCurrency, reader, customToken.account, name);
+        })
+      );
+      customTokensData = yield join(...extendedDataPromise);
+      customTokensData = customTokensData.reduce((a, b) => a.concat(b), []);
+      customTokensData = [...new Set(customTokensData.map(item => item.balance))];
+    }
 
     return {
       ...account,
-      balances: data,
+      balances: customTokensData,
     };
   } catch (c) {
     console.log(c);
