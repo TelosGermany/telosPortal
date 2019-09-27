@@ -12,8 +12,7 @@ import Tool from 'components/Tool/Tool';
 import ToolSection from 'components/Tool/ToolSection';
 import ToolBody from 'components/Tool/ToolBody';
 
-import ChainMonitor from './ChainMonitor';
-import ChainMonitorTable from './ChainMonitorTableStyle';
+import ChainMonitorTable from './ChainMonitorTable';
 import ProducerMonitorTable from './ProducerMonitorTable';
 
 const MonitorFeature = () => {

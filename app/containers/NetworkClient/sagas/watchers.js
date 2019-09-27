@@ -13,14 +13,22 @@ import {
   PUSH_TRANSACTION,
   TRIGGER_UPDATE_MONITOR,
   UPDATE_INTERVAL,
+  UPDATE_TOKEN_PRICE_INTERVAL,
+  TRIGGER_UPDATE_PRICES,
 } from '../constants';
 
 import { buildDispatcher, writerDispatcher, accountDispatcher } from './dispatcher';
-import { fetchNetworks, fetchAccount, fetchProducerMonitoringData, fetchChainMonitoringData } from './fetchers';
+import {
+  fetchNetworks,
+  fetchAccount,
+  fetchProducerMonitoringData,
+  fetchChainMonitoringData,
+  fetchTokenPrices,
+} from './fetchers';
 import { destroyIdentity } from './destroyers';
 import { pushTransaction } from './transaction';
 
-import {triggerUpdatedMonitor} from '../actions';
+import { triggerUpdatedMonitor, triggerUpdateTokenPrices } from '../actions';
 
 // client (re)build can be triggered by signer set, networks loaded, or user request
 function* watchForClientBuild() {
@@ -74,6 +82,18 @@ function* watchUpdateMonitor() {
   yield takeEvery(TRIGGER_UPDATE_MONITOR, fetchChainMonitoringData);
 }
 
+function* tokenPriceTimer() {
+  yield put(triggerUpdateTokenPrices());
+  while (true) {
+    yield call(wait, UPDATE_TOKEN_PRICE_INTERVAL);
+    yield put(triggerUpdateTokenPrices());
+  }
+}
+
+function* watchUpdateTokenPrices() {
+  yield takeEvery(TRIGGER_UPDATE_PRICES, fetchTokenPrices);
+}
+
 export default function* rootSaga() {
   yield all([
     watchForClientBuild(),
@@ -85,5 +105,7 @@ export default function* rootSaga() {
     watchTransaction(),
     chainUpdateTimer(),
     watchUpdateMonitor(),
+    tokenPriceTimer(),
+    watchUpdateTokenPrices(),
   ]);
 }

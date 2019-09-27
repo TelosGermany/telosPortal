@@ -14,6 +14,7 @@ import {
   TOGGLE_OFFLINE,
   UPDATE_PRODUCER_MONITOR,
   UPDATE_CHAIN_MONITOR,
+  UPDATE_TOKEN_PRICES,
 } from './constants';
 
 const initialState = fromJS({
@@ -35,6 +36,7 @@ const initialState = fromJS({
   offlineMode: false,
   override: true,
   networkTime: 0,
+  tokenPrices: [],
 });
 
 function clientReducer(state = initialState, action) {
@@ -93,6 +95,8 @@ function clientReducer(state = initialState, action) {
       return state.set('producerMonitor', action.producerMonitor);
     case UPDATE_CHAIN_MONITOR:
       return state.set('chainMonitor', action.chainMonitor);
+    case UPDATE_TOKEN_PRICES:
+      return state.set('tokenPrices', action.tokenPrices);
     default:
       return state;
   }

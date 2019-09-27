@@ -2,7 +2,10 @@ import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
 import { networksUrl, tokensUrl } from 'remoteConfig';
 
-import { loadedNetworks, updateNetworks, loadedAccount, updatedProducerMonitor, updatedChainMonitor } from '../actions';
+import {
+  loadedNetworks, updateNetworks, loadedAccount, updatedProducerMonitor, updatedChainMonitor,
+  updateTokenPrices
+} from '../actions';
 import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
 
 /*
@@ -17,7 +20,6 @@ export function* fetchNetworks() {
   try {
     // fetch the remote network list
     const data = yield fetch(networksUrl);
-    console.log(data);
     const rawNetworks = yield data.json();
 
     const networks = rawNetworks.map(network => {
@@ -131,7 +133,7 @@ function* fetchTokenFromGreymass(account) {
     }
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
-    console.log(err);
+    console.error(err);
   }
 
   const data = yield fetch('https://eos.greymass.com/v1/chain/get_currency_balances', {
@@ -268,8 +270,8 @@ function* getAccountDetail(reader, name, activeNetwork) {
       ...account,
       balances: customTokensData,
     };
-  } catch (c) {
-    console.log(c);
+  } catch (err) {
+    console.error(err);
     return null;
   }
 }
@@ -315,6 +317,23 @@ export function* fetchChainMonitoringData() {
     if (data) {
       yield put(updatedChainMonitor(data));
     }
+  } catch (err) {
+    console.error('An TelosPortal error occured - see details below:');
+    console.error(err);
+  }
+}
+
+export function* fetchTokenPrices() {
+  try {
+    const tokenPrices = yield fetch('https://marketcap.one/api/1.0/tokens', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'MCO-Auth': process.env.API_KEY,
+      },
+    });
+    const tokenPriceData = yield tokenPrices.json();
+    yield put(updateTokenPrices(tokenPriceData));
   } catch (err) {
     console.error('An TelosPortal error occured - see details below:');
     console.error(err);
