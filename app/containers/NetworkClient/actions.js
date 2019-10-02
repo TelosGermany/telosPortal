@@ -15,6 +15,8 @@ import {
   TRIGGER_UPDATE_MONITOR,
   UPDATE_PRODUCER_MONITOR,
   UPDATE_CHAIN_MONITOR,
+  UPDATE_TOKEN_PRICES,
+  TRIGGER_UPDATE_PRICES,
 } from './constants';
 
 export function setSigner(networkSigner) {
@@ -126,5 +128,18 @@ export function updatedChainMonitor(data) {
 export function triggerUpdatedMonitor() {
   return {
     type: TRIGGER_UPDATE_MONITOR,
+  };
+}
+
+export function updateTokenPrices(data) {
+  return {
+    type: UPDATE_TOKEN_PRICES,
+    tokenPrices: data.data,
+  };
+}
+
+export function triggerUpdateTokenPrices() {
+  return {
+    type: TRIGGER_UPDATE_PRICES,
   };
 }

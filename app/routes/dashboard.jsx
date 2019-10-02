@@ -14,6 +14,7 @@ import ClaimRewards from 'components/Features/ClaimRewardsForm';
 import Airgrab from 'components/Features/AirgrabForm';
 import Monitor from 'components/Features/BlockchainMonitor';
 import VotingTable from 'containers/NetworkProducers';
+import TokenPrices from 'components/Features/TokenPrices';
 
 // MULTISIG - OFFLINE SIGN
 import MultisigCreate from 'components/Features/Multisig/Create';
@@ -42,6 +43,7 @@ import {
   CloudDownload,
   VpnKey,
   DesktopMac,
+  AttachMoney,
 } from '@material-ui/icons';
 
 // TODO: Check whats needed for first release
@@ -79,6 +81,12 @@ const dashRoutes = [
     name: 'Monitor',
     icon: DesktopMac,
     component: Monitor,
+  },
+  {
+    path: '/tokenPrices',
+    name: 'Token Prices',
+    icon: AttachMoney,
+    component: TokenPrices,
   },
   {
     path: '/search',
