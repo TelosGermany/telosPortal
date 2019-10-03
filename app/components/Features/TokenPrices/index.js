@@ -5,7 +5,6 @@
 * Version: 1.0
 */
 
-
 import React from 'react';
 
 import AttachMoney from '@material-ui/icons/AttachMoney';
@@ -15,6 +14,7 @@ import ToolSection from 'components/Tool/ToolSection';
 import ToolBody from 'components/Tool/ToolBody';
 
 import TokenPriceTable from './TokenPriceTable';
+import UserTokenBalances from './UserTokenBalances';
 
 const TokenPrices = () => {
   return (
@@ -24,7 +24,13 @@ const TokenPrices = () => {
           color="warning"
           icon={AttachMoney}
           header="Token prices"
-          subheader=" - Latest data from marketcap.one">
+          subheader=" - thanks to marketcap.one for providing their API">
+          <UserTokenBalances />
+          <br />
+          <p>
+            Token staked in Rex are not calculated at the moment. We're currently working on this feature, sorry for any
+            inconvenience.
+          </p>
           <TokenPriceTable />
         </ToolBody>
       </ToolSection>
