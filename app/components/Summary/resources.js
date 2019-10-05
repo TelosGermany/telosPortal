@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -63,10 +64,13 @@ function ResourcesTable({ ...props }) {
             </TableRow>
             <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
               <TableCell className={classes.tableCell}>
-                <h6>Tokens</h6>
+                <h6>Token</h6>
               </TableCell>
               <TableCell className={classes.tableCell} colSpan={9}>
                 <h6>{account.balances.map(bal => `${bal.split(' ')[0]} ${bal.split(' ')[1]}`).join(', ')}</h6>
+                <NavLink to="tokenPrices" key={`route-tokenPrices`}>
+                  <h4>More information</h4>
+                </NavLink>
               </TableCell>
             </TableRow>
           </TableBody>
