@@ -23,7 +23,13 @@ const TokenPriceTable = props => {
       columns={[
         {
           Header: 'Name',
-          accessor: 'name',
+          accessor: 'symbol',
+          id: 'symbol',
+          Cell: row => (
+            <a href={`https://marketcap.one/m/${row.value}`} target="new">
+              {row.value}
+            </a>
+          ),
         },
         {
           Header: 'Current Price',
