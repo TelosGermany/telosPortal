@@ -21,6 +21,12 @@ import TableRow from '@material-ui/core/TableRow';
 import withStyles from '@material-ui/core/styles/withStyles';
 import tableStyle from 'assets/jss/tableStyle';
 
+function compare(a, b) {
+  if (a.balance === '/') return 1;
+  else if (b.balance === '/') return -1;
+  return b.balance - a.balance;
+}
+
 const getAccountBalance = (account, tokenPrices) => {
   const { total_resources } = account;
   const userBalances = { total: 0, currencies: [] };
@@ -31,9 +37,9 @@ const getAccountBalance = (account, tokenPrices) => {
   const accountNetWeight = parseFloat(total_resources.net_weight.substr(0, total_resources.net_weight.indexOf(' ')));
   const accountCpuWeight = parseFloat(total_resources.cpu_weight.substr(0, total_resources.cpu_weight.indexOf(' ')));
   account.balances.forEach(balance => {
+    const tokenName = balance.substr(balance.indexOf(' ') + 1, balance.length);
+    const balanceValue = balance.substr(0, balance.indexOf(' '));
     tokenPrices.forEach(tokenPrice => {
-      const tokenName = balance.substr(balance.indexOf(' ') + 1, balance.length);
-      const balanceValue = balance.substr(0, balance.indexOf(' '));
       if (tokenPrice.symbol === tokenName) {
         let totalCurrencyValue = balanceValue * tokenPrice.current_price;
         if (tokenPrice.symbol === accountResourceToken) {
@@ -45,7 +51,10 @@ const getAccountBalance = (account, tokenPrices) => {
         userBalances.currencies.push({ name: tokenPrice.symbol, balance: totalCurrencyValue });
       }
     });
+    if (!userBalances.currencies.find(currency => currency.name === tokenName))
+      userBalances.currencies.push({ name: tokenName, balance: '/' });
   });
+  userBalances.currencies.sort(compare);
   return userBalances;
 };
 
