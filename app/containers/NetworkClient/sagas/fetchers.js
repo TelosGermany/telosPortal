@@ -296,6 +296,7 @@ export function* fetchAccount() {
 export function* fetchProducerMonitoringData() {
   try {
     const reader = yield select(makeSelectReader());
+    if (reader === undefined || reader === null) return;
     const jsonFlag = true;
     const limit = 1000;
     const data = yield reader.getProducers(jsonFlag, '', limit);
@@ -312,6 +313,7 @@ export function* fetchProducerMonitoringData() {
 export function* fetchChainMonitoringData() {
   try {
     const reader = yield select(makeSelectReader());
+    if (reader === undefined || reader === null) return;
     const data = yield reader.getInfo({});
 
     if (data) {

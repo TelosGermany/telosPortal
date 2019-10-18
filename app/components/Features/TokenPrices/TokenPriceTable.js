@@ -13,8 +13,12 @@ import { makeSelectTokenPrices } from 'containers/NetworkClient/selectors';
 import ReactTable from 'react-table';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { getEOSPrice, calculateUSDPrice } from './utils';
+
 const TokenPriceTable = props => {
   const { tokenPrices } = props;
+  const eosPrice = getEOSPrice(tokenPrices);
+
   return (
     <ReactTable
       data={tokenPrices}
@@ -34,32 +38,41 @@ const TokenPriceTable = props => {
         {
           Header: 'Current Price',
           id: 'current_price',
-          accessor: d => Number(d.current_price).toFixed(5),
+          accessor: d =>
+            d.symbol !== 'EOS' && d.symbol !== 'BTC'
+              ? calculateUSDPrice(d.current_price, eosPrice).toFixed(5)
+              : Number(d.current_price).toFixed(5),
           Cell: row => <span>{row.value} USD</span>,
         },
         {
           Header: 'Current Supply',
-          accessor: 'current_supply',
+          id: 'current_supply',
+          accessor: d => Number(d.current_supply).toFixed(2),
+          Cell: row => <span>{row.value}</span>,
         },
         {
           Header: 'May Supply',
           id: 'max_supply',
-          accessor: d => Number(d.max_supply).toFixed(4),
+          accessor: d => Number(d.max_supply).toFixed(2),
           Cell: row => <span>{row.value}</span>,
         },
         {
           Header: 'Current Marketcap',
-          accessor: 'current_marketcap',
+          id: 'current_marketcap',
+          accessor: d => Number(d.current_marketcap).toFixed(2),
+          Cell: row => <span>{row.value}</span>,
         },
         {
           Header: 'Volume 24hr',
-          accessor: 'volume_24hr',
+          id: 'volume_24hr',
+          accessor: d => Number(d.volume_24hr).toFixed(2),
+          Cell: row => <span>{row.value}</span>,
         },
         {
           Header: 'Price change 24hr',
           id: 'price_change_24hr',
           accessor: d => Number(d.price_change_24hr).toFixed(2),
-          Cell: row => <span>{row.value} %</span>,
+          Cell: row => <span style={{ color: row.value >= 0 ? 'green' : 'red' }}>{row.value} %</span>,
         },
         {
           filterable: false,
