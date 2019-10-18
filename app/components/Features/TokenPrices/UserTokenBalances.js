@@ -21,6 +21,8 @@ import TableRow from '@material-ui/core/TableRow';
 import withStyles from '@material-ui/core/styles/withStyles';
 import tableStyle from 'assets/jss/tableStyle';
 
+import { getEOSPrice, calculateUSDPrice } from './utils';
+
 function compare(a, b) {
   if (a.balance === '/') return 1;
   else if (b.balance === '/') return -1;
@@ -36,6 +38,8 @@ const getAccountBalance = (account, tokenPrices) => {
   );
   const accountNetWeight = parseFloat(total_resources.net_weight.substr(0, total_resources.net_weight.indexOf(' ')));
   const accountCpuWeight = parseFloat(total_resources.cpu_weight.substr(0, total_resources.cpu_weight.indexOf(' ')));
+  const eosPrice = getEOSPrice(tokenPrices);
+
   account.balances.forEach(balance => {
     const tokenName = balance.substr(balance.indexOf(' ') + 1, balance.length);
     const balanceValue = balance.substr(0, balance.indexOf(' '));
@@ -46,6 +50,7 @@ const getAccountBalance = (account, tokenPrices) => {
           totalCurrencyValue += accountNetWeight * tokenPrice.current_price;
           totalCurrencyValue += accountCpuWeight * tokenPrice.current_price;
         }
+        if (tokenName !== 'EOS' || tokenName !== 'BTC') calculateUSDPrice(totalCurrencyValue, eosPrice);
         userBalances.total += totalCurrencyValue;
         totalCurrencyValue = totalCurrencyValue.toFixed(2);
         userBalances.currencies.push({ name: tokenPrice.symbol, balance: totalCurrencyValue });
@@ -58,7 +63,7 @@ const getAccountBalance = (account, tokenPrices) => {
   return userBalances;
 };
 
-const ChainMonitorTable = props => {
+const TokenMonitorTable = props => {
   const { classes, account, tokenPrices } = props;
   let userBalances = { total: 0, currencies: [] };
   if (account !== null) userBalances = getAccountBalance(account, tokenPrices);
@@ -75,20 +80,20 @@ const ChainMonitorTable = props => {
         </TableHead>
         <TableBody>
           {account !== null ? (
-            <TableRow className={classes.tableRowHover} key={account.account_name}>
-              {userBalances.currencies.map(currency => {
-                return (
-                  <TableRow className={classes.tableRowHover} key={account.account_name}>
-                    <TableCell className={classes.tableCellCenter}>
-                      <a href={`https://marketcap.one/m/${currency.name}`} target="new">
-                        {currency.name} - {currency.balance} USD
-                      </a>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              <TableCell className={classes.tableCellCenter}>{userBalances.total.toFixed(2)} USD</TableCell>
-            </TableRow>
+            userBalances.currencies.map((currency, index) => {
+              return (
+                <TableRow className={classes.tableRowHover} key={currency.name}>
+                  <TableCell className={classes.tableCellCenter}>
+                    <a href={`https://marketcap.one/m/${currency.name}`} target="new">
+                      {currency.name} - {currency.balance} USD
+                    </a>
+                  </TableCell>
+                  {index === 0 && (
+                    <TableCell className={classes.tableCellCenter}>{userBalances.total.toFixed(2)} USD</TableCell>
+                  )}
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow className={classes.tableRowHover}>
               <TableCell className={classes.tableCell} colSpan={3}>
@@ -113,4 +118,4 @@ export default compose(
     mapStateToProps,
     null
   )
-)(ChainMonitorTable);
+)(TokenMonitorTable);
