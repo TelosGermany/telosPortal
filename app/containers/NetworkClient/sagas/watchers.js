@@ -83,7 +83,6 @@ function* watchUpdateMonitor() {
 }
 
 function* tokenPriceTimer() {
-  yield put(triggerUpdateTokenPrices());
   while (true) {
     yield call(wait, UPDATE_TOKEN_PRICE_INTERVAL);
     yield put(triggerUpdateTokenPrices());

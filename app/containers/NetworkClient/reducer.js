@@ -96,7 +96,8 @@ function clientReducer(state = initialState, action) {
     case UPDATE_CHAIN_MONITOR:
       return state.set('chainMonitor', action.chainMonitor);
     case UPDATE_TOKEN_PRICES:
-      return state.set('tokenPrices', action.tokenPrices);
+      const prices = action.tokenPrices === null || action.tokenPrices === undefined ? [] : action.tokenPrices;
+      return state.set('tokenPrices', prices);
     default:
       return state;
   }

@@ -1,10 +1,13 @@
-import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call } from 'redux-saga/effects';
 import { networksUrl, tokensUrl } from 'remoteConfig';
 
 import {
-  loadedNetworks, updateNetworks, loadedAccount, updatedProducerMonitor, updatedChainMonitor,
-  updateTokenPrices
+  loadedNetworks,
+  updateNetworks,
+  loadedAccount,
+  updatedProducerMonitor,
+  updatedChainMonitor,
+  updateTokenPrices,
 } from '../actions';
 import { makeSelectIdentity, makeSelectReader, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
 
@@ -331,7 +334,7 @@ export function* fetchTokenPrices() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        'MCO-Auth': process.env.API_KEY,
+        'MCO-Auth': process.env.MARKETCAP_ONE_API_KEY,
       },
     });
     const tokenPriceData = yield tokenPrices.json();

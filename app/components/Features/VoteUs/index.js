@@ -43,14 +43,16 @@ const VoteUs = props => {
   const { pushTransaction, networkIdentity, networkAccount, className } = props;
   const handleSubmit = () => {
     const transaction = makeTransaction(networkIdentity, networkAccount);
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
   return (
     <React.Fragment>
       <a href="#" onClick={handleSubmit} className={className}>
         TelosGermany
       </a>
-      <Button type="submit" color="success" onClick={handleSubmit} style={{marginTop:'-7px',marginLeft:'10px'}}>Vote</Button>
+      <Button type="submit" color="success" onClick={handleSubmit} style={{ marginTop: '-7px', marginLeft: '10px' }}>
+        Vote
+      </Button>
     </React.Fragment>
   );
 };
@@ -62,7 +64,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushTransaction: (transaction, history) => dispatch(sendTransaction(transaction,history)),
+    pushTransaction: (transaction, history) => dispatch(sendTransaction(transaction, history)),
   };
 }
 
