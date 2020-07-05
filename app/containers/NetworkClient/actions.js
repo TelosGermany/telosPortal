@@ -15,8 +15,8 @@ import {
   TRIGGER_UPDATE_MONITOR,
   UPDATE_PRODUCER_MONITOR,
   UPDATE_CHAIN_MONITOR,
-  UPDATE_TOKEN_PRICES,
-  TRIGGER_UPDATE_PRICES,
+  UPDATE_TOKEN_LIST,
+  TRIGGER_FETCH_TOKEN_LIST,
 } from './constants';
 
 export function setSigner(networkSigner) {
@@ -131,15 +131,16 @@ export function triggerUpdatedMonitor() {
   };
 }
 
-export function updateTokenPrices(data) {
+export function triggerFetchTokenList() {
   return {
-    type: UPDATE_TOKEN_PRICES,
-    tokenPrices: data.data,
+    type: TRIGGER_FETCH_TOKEN_LIST,
   };
 }
 
-export function triggerUpdateTokenPrices() {
+export function updateTokenList(data) {
+  console.log('updateTokenList');
   return {
-    type: TRIGGER_UPDATE_PRICES,
+    type: UPDATE_TOKEN_LIST,
+    tokens: data,
   };
 }

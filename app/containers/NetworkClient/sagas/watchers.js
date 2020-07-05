@@ -1,4 +1,4 @@
-import { takeLatest, all, takeEvery, call, put } from 'redux-saga/effects';
+import { takeLatest, all, takeEvery, call, put } from "redux-saga/effects";
 
 import {
   SET_SIGNER,
@@ -13,26 +13,33 @@ import {
   PUSH_TRANSACTION,
   TRIGGER_UPDATE_MONITOR,
   UPDATE_INTERVAL,
-  UPDATE_TOKEN_PRICE_INTERVAL,
-  TRIGGER_UPDATE_PRICES,
-} from '../constants';
+  UPDATE_TOKEN_LIST,
+  TRIGGER_FETCH_TOKEN_LIST
+} from "../constants";
 
-import { buildDispatcher, writerDispatcher, accountDispatcher } from './dispatcher';
+import {
+  buildDispatcher,
+  writerDispatcher,
+  accountDispatcher
+} from "./dispatcher";
 import {
   fetchNetworks,
   fetchAccount,
   fetchProducerMonitoringData,
   fetchChainMonitoringData,
-  fetchTokenPrices,
-} from './fetchers';
-import { destroyIdentity } from './destroyers';
-import { pushTransaction } from './transaction';
+  fetchTokenList
+} from "./fetchers";
+import { destroyIdentity } from "./destroyers";
+import { pushTransaction } from "./transaction";
 
-import { triggerUpdatedMonitor, triggerUpdateTokenPrices } from '../actions';
+import { triggerUpdatedMonitor } from "../actions";
 
 // client (re)build can be triggered by signer set, networks loaded, or user request
 function* watchForClientBuild() {
-  yield takeLatest([SET_SIGNER, LOADED_NETWORKS, SET_NETWORK, SET_IDENTITY], buildDispatcher);
+  yield takeLatest(
+    [SET_SIGNER, LOADED_NETWORKS, SET_NETWORK, SET_IDENTITY],
+    buildDispatcher
+  );
 }
 
 function* watchForLink() {
@@ -82,15 +89,8 @@ function* watchUpdateMonitor() {
   yield takeEvery(TRIGGER_UPDATE_MONITOR, fetchChainMonitoringData);
 }
 
-function* tokenPriceTimer() {
-  while (true) {
-    yield call(wait, UPDATE_TOKEN_PRICE_INTERVAL);
-    yield put(triggerUpdateTokenPrices());
-  }
-}
-
-function* watchUpdateTokenPrices() {
-  yield takeEvery(TRIGGER_UPDATE_PRICES, fetchTokenPrices);
+function* watchTriggerTokenList() {
+  yield takeEvery(TRIGGER_FETCH_TOKEN_LIST, fetchTokenList);
 }
 
 export default function* rootSaga() {
@@ -104,7 +104,6 @@ export default function* rootSaga() {
     watchTransaction(),
     chainUpdateTimer(),
     watchUpdateMonitor(),
-    tokenPriceTimer(),
-    watchUpdateTokenPrices(),
+    watchTriggerTokenList()
   ]);
 }

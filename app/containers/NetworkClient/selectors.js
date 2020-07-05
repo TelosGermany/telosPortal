@@ -21,7 +21,7 @@ const makeSelectOffline = () => createSelector(selectClientState, substate => su
 
 const makeSelectProducerMonitor = () => createSelector(selectClientState, substate => substate.get('producerMonitor'));
 const makeSelectChainMonitor = () => createSelector(selectClientState, substate => substate.get('chainMonitor'));
-const makeSelectTokenPrices = () => createSelector(selectClientState, substate => substate.get('tokenPrices'));
+const makeSelectTokenList = () => createSelector(selectClientState, substate => substate.get('tokenList'));
 /**
  * loading selectors
  */
@@ -85,5 +85,5 @@ export {
   makeSelectOffline,
   makeSelectProducerMonitor,
   makeSelectChainMonitor,
-  makeSelectTokenPrices,
+  makeSelectTokenList,
 };

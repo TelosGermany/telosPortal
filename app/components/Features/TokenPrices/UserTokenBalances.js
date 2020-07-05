@@ -1,16 +1,16 @@
 /*
-* Author: Andre Litty
-* Project: TelosPortal
-* Date: 03.10.19
-* Version: 1.0
-*/
+ * Author: Andre Litty
+ * Project: TelosPortal
+ * Date: 03.10.19
+ * Version: 1.0
+ */
 
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { createStructuredSelector } from 'reselect';
-import { makeSelectAccount, makeSelectTokenPrices } from 'containers/NetworkClient/selectors';
+import { makeSelectAccount, makeSelectTokenList } from 'containers/NetworkClient/selectors';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,8 +20,6 @@ import TableRow from '@material-ui/core/TableRow';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import tableStyle from 'assets/jss/tableStyle';
-
-import { getEOSPrice, calculateUSDPrice } from './utils';
 
 function compare(a, b) {
   if (a.balance === '/') return 1;
@@ -38,7 +36,6 @@ const getAccountBalance = (account, tokenPrices) => {
   );
   const accountNetWeight = parseFloat(total_resources.net_weight.substr(0, total_resources.net_weight.indexOf(' ')));
   const accountCpuWeight = parseFloat(total_resources.cpu_weight.substr(0, total_resources.cpu_weight.indexOf(' ')));
-  const eosPrice = getEOSPrice(tokenPrices);
 
   account.balances.forEach(balance => {
     const tokenName = balance.substr(balance.indexOf(' ') + 1, balance.length);
@@ -50,7 +47,6 @@ const getAccountBalance = (account, tokenPrices) => {
           totalCurrencyValue += accountNetWeight * tokenPrice.current_price;
           totalCurrencyValue += accountCpuWeight * tokenPrice.current_price;
         }
-        if (tokenName !== 'EOS' || tokenName !== 'BTC') calculateUSDPrice(totalCurrencyValue, eosPrice);
         userBalances.total += totalCurrencyValue;
         totalCurrencyValue = totalCurrencyValue.toFixed(2);
         userBalances.currencies.push({ name: tokenPrice.symbol, balance: totalCurrencyValue });
@@ -109,13 +105,7 @@ const TokenMonitorTable = props => {
 
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
-  tokenPrices: makeSelectTokenPrices(),
+  tokenPrices: makeSelectTokenList(),
 });
 
-export default compose(
-  withStyles(tableStyle),
-  connect(
-    mapStateToProps,
-    null
-  )
-)(TokenMonitorTable);
+export default compose(withStyles(tableStyle), connect(mapStateToProps, null))(TokenMonitorTable);
