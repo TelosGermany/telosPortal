@@ -37,6 +37,5 @@ export const UPDATE_PRODUCER_MONITOR = 'app/NetworkClient/UPDATE_PRODUCER_MONITO
 export const UPDATE_CHAIN_MONITOR = 'app/NetworkClient/UPDATE_CHAIN_MONITOR';
 export const TRIGGER_UPDATE_MONITOR = 'app/NetworkClient/TRIGGER_UPDATE_MONITOR';
 
-export const UPDATE_TOKEN_PRICE_INTERVAL = 1000 * 60 * 60;
-export const UPDATE_TOKEN_PRICES = 'app/NetworkClient/UPDATE_TOKEN_PRICES';
-export const TRIGGER_UPDATE_PRICES = 'app/NetworkClient/TRIGGER_UPDATE_PRICES';
+export const UPDATE_TOKEN_LIST = 'app/NetworkClient/UPDATE_TOKEN_LIST';
+export const TRIGGER_FETCH_TOKEN_LIST = 'app/NetworkClient/FETCH_TOKEN_LIST';
