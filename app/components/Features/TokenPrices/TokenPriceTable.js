@@ -54,7 +54,7 @@ const TokenPriceTable = props => {
             Header: 'Price change 24hr',
             id: 'price_chprice_change_24hange_24h',
             accessor: d => Number(d.price_change_24h).toFixed(2),
-            Cell: row => <span style={{ color: row.value >= 0 ? 'green' : 'red' }}>{row.value} %</span>,
+            Cell: row => <span style={{ color: row.value >= 0 ? 'green' : 'red' }}>{row.value}</span>,
           },
           {
             Header: 'Current Marketcap',
